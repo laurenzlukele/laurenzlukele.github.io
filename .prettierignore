@@ -1,0 +1,6 @@
+# lockfiles
+pnpm-lock.yaml
+
+# build output (optional)
+.nuxt
+dist
