@@ -1,7 +1,8 @@
 .PHONY: copy generate gitpush deploy
 
 copy:
-	rsync -rlpcgoDvzi .output/public/* docs
+	rsync -a --delete .output/public/ docs/
+	touch docs/.nojekyll
 	
 gitpush:
 	git add . ; git commit -am "deploy generated files"; git push -u origin main;
