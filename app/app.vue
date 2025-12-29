@@ -1,12 +1,19 @@
+<script setup lang="ts">
+const colorMode = useColorMode();
+
+// Force dark mode on app start
+colorMode.preference = "dark";
+</script>
+
 <template>
-  <div>
+  <UApp>
     <NuxtRouteAnnouncer />
     <NuxtPage />
-  </div>
+  </UApp>
 </template>
 
 <style lang="css">
-  body {
-    margin: 0 0;
-  }
+body {
+  margin: 0 0;
+}
 </style>
