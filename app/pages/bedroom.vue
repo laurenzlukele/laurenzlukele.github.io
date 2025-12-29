@@ -1,4 +1,39 @@
 <script setup lang="ts">
+const isPlayerOpen = ref(false);
+const isPlaying = ref(false);
+const currentTrack = ref({ title: "", src: "" });
+
+const audioPlayer = ref<HTMLAudioElement | null>(null);
+
+const openPlayer = (title: string, fileName: string) => {
+  currentTrack.value = {
+    title,
+    src: `/audio/${fileName}`,
+  };
+  console.log("nigga");
+  isPlayerOpen.value = true;
+  isPlaying.value = true; // Auto-play when opened
+};
+
+const togglePlay = () => {
+  if (!audioPlayer.value) return;
+
+  if (audioPlayer.value.paused) {
+    audioPlayer.value.play().catch((e) => console.error("Playback failed:", e));
+    isPlaying.value = true;
+  } else {
+    audioPlayer.value.pause();
+    isPlaying.value = false;
+  }
+};
+
+watch(isPlayerOpen, (isOpen) => {
+  if (!isOpen && audioPlayer.value) {
+    audioPlayer.value.pause();
+    isPlaying.value = false;
+  }
+});
+
 const rooms = [
   { name: "Entrance", path: "/" },
   { name: "Kitchen", path: "/kitchen" },
@@ -12,7 +47,7 @@ const hotspots = [
     x: 26,
     y: 53,
     label: "Listen to the score",
-    action: () => console.log("Guitar clicked"),
+    action: () => openPlayer("Mystery Theme", "score.mp3"),
   },
   {
     id: 2,
@@ -63,30 +98,67 @@ const hotspots = [
         </UButton>
       </div>
     </div>
+
+    <UModal v-model:open="isPlayerOpen" title="Now Playing">
+      <template #content>
+        <div class="text-center py-4">
+          <div class="mb-6 relative inline-block">
+            <div
+              :class="[
+                'w-24 h-24 rounded-full bg-gray-800 border-4 border-gray-600 flex items-center justify-center shadow-xl',
+                isPlaying ? 'animate-spin-slow' : '',
+              ]"
+            >
+              <div class="w-8 h-8 rounded-full bg-red-500"></div>
+            </div>
+          </div>
+
+          <h4 class="text-xl font-bold mb-6">{{ currentTrack.title }}</h4>
+
+          <audio
+            ref="audioPlayer"
+            :src="currentTrack.src"
+            autoplay
+            @ended="isPlaying = false"
+          ></audio>
+
+          <div class="flex justify-center gap-4">
+            <UButton
+              :icon="
+                isPlaying
+                  ? 'i-heroicons-pause-circle-20-solid'
+                  : 'i-heroicons-play-circle-20-solid'
+              "
+              size="xl"
+              color="primary"
+              variant="solid"
+              @click="togglePlay"
+            >
+              {{ isPlaying ? "Pause" : "Play" }}
+            </UButton>
+          </div>
+        </div>
+      </template>
+    </UModal>
   </div>
 </template>
 
 <style scoped>
-/* 1. The Viewport: Locks the screen size and hides overflow */
 .viewport {
-  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-color: #000;
   display: grid;
-  place-items: center; /* Centers the scene */
+  place-items: center;
 }
 
-/* 2. The Scene: Mimics object-fit: cover on a DIV */
 .scene-container {
   position: relative;
 
-  /* CRITICAL: Set this to the intrinsic aspect ratio of your image */
+  /* CRITICAL: Set this to the intrinsic aspect ratio of the background image */
   /* Example: 16/9, 4/3, or actual pixel dims like 1920/1080 */
   aspect-ratio: 16/9;
-
-  /* These two lines force the container to expand until it covers the whole screen */
   min-width: 100vw;
   min-height: 100vh;
 }
@@ -95,10 +167,8 @@ const hotspots = [
   width: 100%;
   height: 100%;
   display: block;
-  /* Image just fills the container, which is already handling the aspect ratio */
 }
 
-/* 3. The UI Overlay: Floats above the scene, fixed to the viewport */
 .ui-overlay {
   position: absolute;
   inset: 0;
@@ -113,10 +183,9 @@ const hotspots = [
   transform: translateX(-50%);
   display: flex;
   gap: 1rem;
-  pointer-events: auto; /* Re-enable clicks for buttons */
+  pointer-events: auto;
 }
 
-/* 4. Hotspot Styling */
 .hotspot {
   position: absolute;
   transform: translate(-50%, -50%); /* Centers the coordinate */
@@ -128,7 +197,6 @@ const hotspots = [
   flex-direction: column;
   align-items: center;
   z-index: 5;
-  group: hover; /* For Tailwind-like group logic */
 }
 
 /* The solid center dot */
@@ -172,7 +240,7 @@ const hotspots = [
 /* Hover Effects */
 .hotspot:hover .hotspot-dot {
   transform: scale(1.3);
-  background-color: #fbbf24; /* Gold color */
+  background-color: #fbbf24;
 }
 
 .hotspot:hover .hotspot-label {
@@ -188,6 +256,19 @@ const hotspots = [
   100% {
     transform: translate(-50%, -50%) scale(1.5);
     opacity: 0;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
