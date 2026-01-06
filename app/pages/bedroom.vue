@@ -5,12 +5,14 @@ type Track = {
   duration: string; // manual string for UI (e.g., "3:45")
 };
 
-const isPlayerOpen = ref(false);
-const isPlaying = ref(false);
-
+const isAudioPlayerOpen = ref(false);
+const isAudioPlaying = ref(false);
 const playlist = ref<Track[]>([]);
 const currentIndex = ref(0);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
+
+const isVideoPlayerOpen = ref(false);
+const currentYoutubeId = ref("");
 
 const currentTrack = computed(() => playlist.value[currentIndex.value]);
 const currentSrc = computed(() =>
@@ -19,57 +21,58 @@ const currentSrc = computed(() =>
 const hasNext = computed(() => currentIndex.value < playlist.value.length - 1);
 const hasPrev = computed(() => currentIndex.value > 0);
 
-const openPlayer = (tracks: Track[]) => {
+const openAudioPlayer = (tracks: Track[]) => {
   playlist.value = tracks;
   currentIndex.value = 0;
-  isPlayerOpen.value = true;
+  isAudioPlayerOpen.value = true;
   nextTick(() => {
-    isPlaying.value = true;
+    isAudioPlaying.value = true;
   });
 };
 
-// Toggle Play/Pause
 const togglePlay = () => {
   if (!audioPlayer.value) return;
   if (audioPlayer.value.paused) {
     audioPlayer.value.play().catch((e) => console.error(e));
-    isPlaying.value = true;
+    isAudioPlaying.value = true;
   } else {
     audioPlayer.value.pause();
-    isPlaying.value = false;
+    isAudioPlaying.value = false;
   }
 };
 
-// Navigation
 const playTrackAtIndex = (index: number) => {
   currentIndex.value = index;
-  isPlaying.value = true;
+  isAudioPlaying.value = true;
 };
 
 const nextTrack = () => {
   if (hasNext.value) {
     currentIndex.value++;
-    isPlaying.value = true;
+    isAudioPlaying.value = true;
   } else {
-    // Optional: Loop back to start or stop
-    isPlaying.value = false;
+    isAudioPlaying.value = false;
   }
 };
 
 const prevTrack = () => {
   if (hasPrev.value) {
     currentIndex.value--;
-    isPlaying.value = true;
+    isAudioPlaying.value = true;
   }
 };
 
-// Close cleanup
-watch(isPlayerOpen, (isOpen) => {
+watch(isAudioPlayerOpen, (isOpen) => {
   if (!isOpen && audioPlayer.value) {
     audioPlayer.value.pause();
-    isPlaying.value = false;
+    isAudioPlaying.value = false;
   }
 });
+
+const openVideoPlayer = (youtubeId: string) => {
+  currentYoutubeId.value = youtubeId;
+  isVideoPlayerOpen.value = true;
+};
 
 const rooms = [
   { name: "Entrance", path: "/" },
@@ -85,13 +88,9 @@ const hotspots = [
     y: 53,
     label: "Listen to the score",
     action: () =>
-      openPlayer([
+      openAudioPlayer([
         { title: "Title Music", file: "track01.mp3", duration: "4:05" },
-        {
-          title: "The Discovery",
-          file: "track02.mp3",
-          duration: "1:36",
-        },
+        { title: "The Discovery", file: "track02.mp3", duration: "1:36" },
         { title: "Running Away", file: "track03.mp3", duration: "2:12" },
       ]),
   },
@@ -100,7 +99,7 @@ const hotspots = [
     x: 48,
     y: 66,
     label: "Watch the BTS documentary",
-    action: () => console.log("TV clicked"),
+    action: () => openVideoPlayer("NFVXPxwkyHc"),
   },
   {
     id: 3,
@@ -146,7 +145,7 @@ const hotspots = [
     </div>
 
     <UModal
-      v-model:open="isPlayerOpen"
+      v-model:open="isAudioPlayerOpen"
       :ui="{ content: 'sm:max-w-4xl' }"
       title="Now Playing"
     >
@@ -162,7 +161,7 @@ const hotspots = [
             >
               <div
                 class="w-full h-full rounded-full overflow-hidden bg-black"
-                :class="{ 'animate-spin-slow': isPlaying }"
+                :class="{ 'animate-spin-slow': isAudioPlaying }"
               >
                 <div
                   class="w-full h-full bg-[url('https://placehold.co/400')] bg-cover opacity-80"
@@ -172,7 +171,6 @@ const hotspots = [
                 class="absolute w-16 h-16 bg-red-600 rounded-full border-4 border-black z-10"
               ></div>
             </div>
-
             <div class="mt-8 text-center">
               <h2 class="text-2xl font-bold tracking-tight">Tethered</h2>
               <p class="text-white/60 text-sm mt-1 uppercase tracking-widest">
@@ -185,7 +183,6 @@ const hotspots = [
             <div class="p-6 border-b border-white/10">
               <h3 class="text-lg font-medium text-white/90">Tracklist</h3>
             </div>
-
             <div class="flex-1 overflow-y-auto p-2 space-y-1">
               <button
                 v-for="(track, index) in playlist"
@@ -201,13 +198,12 @@ const hotspots = [
                     class="w-6 text-center text-sm font-medium text-white/50"
                   >
                     <UIcon
-                      v-if="currentIndex === index && isPlaying"
+                      v-if="currentIndex === index && isAudioPlaying"
                       name="i-heroicons-musical-note-20-solid"
                       class="text-primary-400 animate-pulse"
                     />
                     <span v-else>{{ index + 1 }}</span>
                   </div>
-
                   <div
                     :class="
                       currentIndex === index
@@ -218,30 +214,26 @@ const hotspots = [
                     {{ track.title }}
                   </div>
                 </div>
-
                 <div class="text-xs text-white/40 font-mono">
                   {{ track.duration }}
                 </div>
               </button>
             </div>
-
             <div class="p-6 bg-gray-900 border-t border-white/10">
               <div class="mb-4 text-center">
                 <div class="text-sm font-bold text-white">
                   {{ currentTrack?.title }}
                 </div>
               </div>
-
               <div class="flex items-center justify-center gap-6">
                 <audio
                   ref="audioPlayer"
                   :src="currentSrc"
                   autoplay
                   @ended="nextTrack"
-                  @play="isPlaying = true"
-                  @pause="isPlaying = false"
+                  @play="isAudioPlaying = true"
+                  @pause="isAudioPlaying = false"
                 ></audio>
-
                 <UButton
                   icon="i-heroicons-backward-20-solid"
                   variant="ghost"
@@ -249,7 +241,6 @@ const hotspots = [
                   :disabled="!hasPrev"
                   @click="prevTrack"
                 />
-
                 <UButton
                   size="xl"
                   color="primary"
@@ -258,16 +249,16 @@ const hotspots = [
                   @click="togglePlay"
                 >
                   <UIcon
-                    v-if="isPlaying"
+                    v-if="isAudioPlaying"
                     name="i-heroicons-pause-20-solid"
-                    class="size-5" />
+                    class="size-5"
+                  />
                   <UIcon
                     v-else
                     name="i-heroicons-play-20-solid"
                     class="size-5"
-                  ></UIcon
-                ></UButton>
-
+                  ></UIcon>
+                </UButton>
                 <UButton
                   icon="i-heroicons-forward-20-solid"
                   variant="ghost"
@@ -278,6 +269,37 @@ const hotspots = [
               </div>
             </div>
           </div>
+        </div>
+      </template>
+    </UModal>
+
+    <UModal
+      v-model:open="isVideoPlayerOpen"
+      :ui="{
+        content: 'sm:max-w-5xl',
+      }"
+    >
+      <template #content>
+        <div class="relative w-full aspect-video bg-black">
+          <iframe
+            v-if="isVideoPlayerOpen"
+            width="100%"
+            height="100%"
+            :src="`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&rel=0`"
+            title="Video Player"
+            frameborder="0"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share;
+            "
+            allowfullscreen
+            class="absolute inset-0 w-full h-full"
+          ></iframe>
         </div>
       </template>
     </UModal>
@@ -295,7 +317,6 @@ const hotspots = [
 }
 .scene-container {
   position: relative;
-
   /* CRITICAL: Set this to the intrinsic aspect ratio of the background image */
   /* Example: 16/9, 4/3, or actual pixel dims like 1920/1080 */
   aspect-ratio: 16/9;
@@ -359,7 +380,6 @@ const hotspots = [
   animation: pulse 2s infinite;
   pointer-events: none;
 }
-
 .hotspot-label {
   margin-top: 8px;
   background: rgba(0, 0, 0, 0.8);
@@ -392,7 +412,6 @@ const hotspots = [
     opacity: 0;
   }
 }
-
 .animate-spin-slow {
   animation: spin 6s linear infinite;
 }
