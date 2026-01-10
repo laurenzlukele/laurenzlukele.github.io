@@ -2,6 +2,8 @@
 const isGalleryOpen = ref(false);
 const currentStillIndex = ref(0);
 
+const isScriptOpen = ref(false);
+
 const stills = ref([
   "images/stills/still01.jpg",
   "images/stills/still02.jpg",
@@ -65,7 +67,7 @@ const hotspots = [
     x: 73,
     y: 83,
     label: "Read the script",
-    action: () => console.log("Script clicked"),
+    action: () => (isScriptOpen.value = true),
   },
 ];
 </script>
@@ -106,7 +108,7 @@ const hotspots = [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'sm:max-w-7xl bg-transparent shadow-none ring-0',
+        content: 'sm:max-w-7xl',
         overlay: 'backdrop-blur-sm',
       }"
     >
@@ -156,6 +158,23 @@ const hotspots = [
               {{ currentStillIndex + 1 }} / {{ stills.length }}
             </UBadge>
           </div>
+        </div>
+      </template>
+    </UModal>
+
+    <UModal
+      v-model:open="isScriptOpen"
+      :ui="{
+        overlay: 'backdrop-blur-sm',
+      }"
+    >
+      <template #content>
+        <div class="h-[90vh]">
+          <iframe
+            src="documents/script.pdf"
+            class="w-full h-[90vh]"
+            frameborder="0"
+          ></iframe>
         </div>
       </template>
     </UModal>
