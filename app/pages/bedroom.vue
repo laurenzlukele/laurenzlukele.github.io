@@ -93,6 +93,13 @@ const castList = ref<CastMember[]>([
     image: "/images/cast/endo-kosuke.jpeg",
     socials: { web: "https://a-and-h-promotion.com/artists/Kousuke_Endo/" },
   },
+  {
+    name: "宮園兼生 Miyazono Kensei",
+    role: "Role 8",
+    occupation: "俳優、(Actor)",
+    image: "/images/cast/miyazono-kensei.jpeg",
+    socials: { web: "http://gushout.info/archives/author/kensei_miyazono" },
+  },
 ]);
 
 const currentTrack = computed(() => playlist.value[currentIndex.value]);
