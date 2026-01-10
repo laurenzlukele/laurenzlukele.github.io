@@ -1,11 +1,50 @@
 <script setup lang="ts">
+const isGalleryOpen = ref(false);
+const currentStillIndex = ref(0);
+
+const stills = ref([
+  "images/stills/still01.jpg",
+  "images/stills/still02.jpg",
+  "images/stills/still03.jpg",
+  "images/stills/still04.jpg",
+]);
+
+const currentStill = computed(() => stills.value[currentStillIndex.value]);
+const hasNextStill = computed(
+  () => currentStillIndex.value < stills.value.length - 1,
+);
+const hasPrevStill = computed(() => currentStillIndex.value > 0);
+
+const openGallery = () => {
+  currentStillIndex.value = 0;
+  isGalleryOpen.value = true;
+};
+
+const nextStill = () => {
+  if (hasNextStill.value) currentStillIndex.value++;
+  else currentStillIndex.value = 0; // Loop back to start
+};
+
+const prevStill = () => {
+  if (hasPrevStill.value) currentStillIndex.value--;
+  else currentStillIndex.value = stills.value.length - 1; // Loop to end
+};
+
+// Keyboard navigation for gallery
+const handleKeydown = (e: KeyboardEvent) => {
+  if (!isGalleryOpen.value) return;
+  if (e.key === "ArrowRight") nextStill();
+  if (e.key === "ArrowLeft") prevStill();
+};
+
+onMounted(() => window.addEventListener("keydown", handleKeydown));
+onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
+
 const rooms = [
   { name: "Entrance", path: "/" },
-  { name: "bedroom", path: "/bedroom" },
+  { name: "Bedroom", path: "/bedroom" },
 ];
 
-// Define point-and-click hotspots here
-// Coordinates (x, y) are percentages relative to the IMAGE, not the screen
 const hotspots = [
   {
     id: 1,
@@ -19,7 +58,7 @@ const hotspots = [
     x: 54,
     y: 20,
     label: "Flick through movie stills",
-    action: () => console.log("Poster clicked"),
+    action: () => openGallery(),
   },
   {
     id: 3,
@@ -63,11 +102,67 @@ const hotspots = [
         </UButton>
       </div>
     </div>
+
+    <UModal
+      v-model:open="isGalleryOpen"
+      :ui="{
+        content: 'sm:max-w-7xl bg-transparent shadow-none ring-0',
+        overlay: 'backdrop-blur-sm',
+      }"
+    >
+      <template #content>
+        <div>
+          <div
+            class="relative max-w-full max-h-full flex items-center justify-center"
+          >
+            <img
+              :src="currentStill"
+              class="max-w-full max-h-[75vh] object-contain shadow-2xl rounded-sm ring-1 ring-white/10"
+              alt="Movie Still"
+            />
+          </div>
+
+          <div
+            class="absolute inset-0 pointer-events-none flex items-center justify-between px-4 md:px-14"
+          >
+            <UButton
+              icon="i-heroicons-chevron-left-20-solid"
+              size="xl"
+              color="black"
+              variant="solid"
+              :ui="{ rounded: 'rounded-full' }"
+              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
+              @click.stop="prevStill"
+            />
+
+            <UButton
+              icon="i-heroicons-chevron-right-20-solid"
+              size="xl"
+              color="black"
+              variant="solid"
+              :ui="{ rounded: 'rounded-full' }"
+              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
+              @click.stop="nextStill"
+            />
+          </div>
+
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
+            <UBadge
+              color="gray"
+              variant="subtle"
+              size="lg"
+              class="font-mono tracking-widest bg-black/40 text-white/50 backdrop-blur-md border-none"
+            >
+              {{ currentStillIndex + 1 }} / {{ stills.length }}
+            </UBadge>
+          </div>
+        </div>
+      </template>
+    </UModal>
   </div>
 </template>
 
 <style scoped>
-/* 1. The Viewport: Locks the screen size and hides overflow */
 .viewport {
   position: relative;
   width: 100vw;
@@ -75,18 +170,12 @@ const hotspots = [
   overflow: hidden;
   background-color: #000;
   display: grid;
-  place-items: center; /* Centers the scene */
+  place-items: center;
 }
 
-/* 2. The Scene: Mimics object-fit: cover on a DIV */
 .scene-container {
   position: relative;
-
-  /* CRITICAL: Set this to the intrinsic aspect ratio of your image */
-  /* Example: 16/9, 4/3, or actual pixel dims like 1920/1080 */
   aspect-ratio: 16/9;
-
-  /* These two lines force the container to expand until it covers the whole screen */
   min-width: 100vw;
   min-height: 100vh;
 }
@@ -95,14 +184,12 @@ const hotspots = [
   width: 100%;
   height: 100%;
   display: block;
-  /* Image just fills the container, which is already handling the aspect ratio */
 }
 
-/* 3. The UI Overlay: Floats above the scene, fixed to the viewport */
 .ui-overlay {
   position: absolute;
   inset: 0;
-  pointer-events: none; /* Let clicks pass through */
+  pointer-events: none;
   z-index: 10;
 }
 
@@ -113,13 +200,12 @@ const hotspots = [
   transform: translateX(-50%);
   display: flex;
   gap: 1rem;
-  pointer-events: auto; /* Re-enable clicks for buttons */
+  pointer-events: auto;
 }
 
-/* 4. Hotspot Styling */
 .hotspot {
   position: absolute;
-  transform: translate(-50%, -50%); /* Centers the coordinate */
+  transform: translate(-50%, -50%);
   background: none;
   border: none;
   cursor: pointer;
@@ -128,10 +214,8 @@ const hotspots = [
   flex-direction: column;
   align-items: center;
   z-index: 5;
-  group: hover; /* For Tailwind-like group logic */
 }
 
-/* The solid center dot */
 .hotspot-dot {
   width: 12px;
   height: 12px;
@@ -141,7 +225,6 @@ const hotspots = [
   transition: transform 0.2s ease;
 }
 
-/* The pulsing outer ring */
 .hotspot-ring {
   position: absolute;
   top: 50%;
@@ -155,7 +238,6 @@ const hotspots = [
   pointer-events: none;
 }
 
-/* The Label (Hidden by default, shown on hover) */
 .hotspot-label {
   margin-top: 8px;
   background: rgba(0, 0, 0, 0.8);
@@ -169,10 +251,9 @@ const hotspots = [
   white-space: nowrap;
 }
 
-/* Hover Effects */
 .hotspot:hover .hotspot-dot {
   transform: scale(1.3);
-  background-color: #fbbf24; /* Gold color */
+  background-color: #fbbf24;
 }
 
 .hotspot:hover .hotspot-label {
