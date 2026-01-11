@@ -91,19 +91,7 @@ const hotspots = [
       </button>
     </div>
 
-    <div class="ui-overlay">
-      <div class="room-nav">
-        <UButton
-          v-for="room in rooms"
-          :key="room.path"
-          :to="room.path"
-          color="secondary"
-          size="lg"
-        >
-          Go to {{ room.name }}
-        </UButton>
-      </div>
-    </div>
+    <RoomNavigation :rooms="rooms"></RoomNavigation>
 
     <UModal
       v-model:open="isGalleryOpen"
@@ -203,23 +191,6 @@ const hotspots = [
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.ui-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.room-nav {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  pointer-events: auto;
 }
 
 .hotspot {

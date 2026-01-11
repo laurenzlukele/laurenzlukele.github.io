@@ -16,17 +16,7 @@ const rooms = [
       preload
     />
 
-    <div class="room-nav">
-      <UButton
-        v-for="room in rooms"
-        :key="room.path"
-        :to="room.path"
-        color="secondary"
-        size="lg"
-      >
-        Go to {{ room.name }}
-      </UButton>
-    </div>
+    <RoomNavigation :rooms="rooms"></RoomNavigation>
   </div>
 </template>
 
@@ -44,15 +34,5 @@ const rooms = [
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Bottom navigation bar */
-.room-nav {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
 }
 </style>

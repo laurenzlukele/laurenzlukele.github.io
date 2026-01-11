@@ -1,0 +1,22 @@
+<script setup lang="ts">
+const props = defineProps<{
+  rooms: Array<{
+    name: string;
+    path: string;
+  }>;
+}>();
+</script>
+
+<template>
+  <div class="absolute bottom-8 flex gap-4 inset-x-0 justify-center">
+    <UButton
+      v-for="room in rooms"
+      :key="room.path"
+      :to="room.path"
+      color="secondary"
+      size="lg"
+    >
+      Go to {{ room.name }}
+    </UButton>
+  </div>
+</template>
