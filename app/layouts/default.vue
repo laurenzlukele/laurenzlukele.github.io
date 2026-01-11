@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <slot />
-    <div class="absolute right-5 bottom-5">
+    <div class="hidden sm:block absolute right-5 bottom-5">
       Created by
       <a
         class="hover:underline font-bold"
