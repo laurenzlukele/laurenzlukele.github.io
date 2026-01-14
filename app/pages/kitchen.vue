@@ -76,7 +76,7 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg src="/images/kitchen.jpg" alt="Kitchen" class="scene-image" />
-
+      <div class="vignette"></div>
       <button
         v-for="spot in hotspots"
         :key="spot.id"
@@ -260,5 +260,16 @@ const hotspots = [
     transform: translate(-50%, -50%) scale(1.5);
     opacity: 0;
   }
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.2) 85%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  backdrop-filter: blur(1px); /* Slight blur to focus attention on content */
 }
 </style>
