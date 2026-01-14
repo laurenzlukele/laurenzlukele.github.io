@@ -94,11 +94,28 @@ const castList = ref<CastMember[]>([
     socials: { web: "https://a-and-h-promotion.com/artists/Kousuke_Endo/" },
   },
   {
-    name: "宮園兼生 Miyazono Kensei",
+    name: "宮園兼生 (Miyazono Kensei)",
     role: "Role 8",
     occupation: "俳優、(Actor)",
     image: "/images/cast/miyazono-kensei.jpeg",
     socials: { web: "http://gushout.info/archives/author/kensei_miyazono" },
+  },
+  {
+    name: "小嶋そら (Kojima Sora)",
+    role: "Role 9",
+    occupation:
+      "ジャズダンス、役者活動、映画作り。(Jazz dance, actress, film maker)",
+    image: "/images/cast/kojima-sora.jpeg",
+    socials: { instagram: "https://www.instagram.com/kotori_rr/" },
+  },
+  {
+    name: "藤原 明日人 (Fujihara Asuto)",
+    role: "Role 10",
+    occupation: "Comedian, screenwriter, content creator, television persona",
+    image: "/images/cast/fujihara-asuto.jpeg",
+    socials: {
+      twitter: "https://x.com/amajioasuri1310?s=21&t=Ph_95DKcR_jGSQ0B4zoJ9w",
+    },
   },
 ]);
 
