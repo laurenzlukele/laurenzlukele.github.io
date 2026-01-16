@@ -2,6 +2,9 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: "iris", mode: "out-in" },
+  },
   compatibilityDate: "2025-07-15",
   colorMode: {
     preference: "dark", // default on first visit
