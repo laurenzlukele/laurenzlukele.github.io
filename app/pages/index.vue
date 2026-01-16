@@ -25,7 +25,7 @@ const movie = {
 </script>
 
 <template>
-  <div class="room">
+  <div class="viewport">
     <div class="background-wrapper">
       <NuxtImg
         src="/images/entrance.jpg"
@@ -106,22 +106,20 @@ const movie = {
       </div>
     </div>
 
-    <div class="nav-wrapper">
-      <RoomNavigation :rooms="rooms"></RoomNavigation>
-    </div>
+    <RoomNavigation :rooms="rooms"></RoomNavigation>
   </div>
 </template>
 
 <style scoped>
-.room {
+.viewport {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-color: #000;
-  color: white;
+  display: grid;
+  place-items: center;
 }
-
 .background-wrapper {
   position: absolute;
   inset: 0;

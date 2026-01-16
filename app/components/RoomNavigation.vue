@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="absolute bottom-8 flex gap-4 inset-x-0 justify-center">
+  <div class="absolute bottom-12 flex gap-4 inset-x-0 z-20 justify-center">
     <UButton
       v-for="room in rooms"
       :key="room.path"
