@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   rooms: Array<{
     name: string;
     path: string;

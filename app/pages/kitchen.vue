@@ -2,8 +2,6 @@
 const isGalleryOpen = ref(false);
 const currentStillIndex = ref(0);
 
-const isScriptOpen = ref(false);
-
 const stills = ref([
   "images/stills/still01.jpg",
   "images/stills/still02.jpg",
@@ -39,6 +37,10 @@ const handleKeydown = (e: KeyboardEvent) => {
   if (e.key === "ArrowLeft") prevStill();
 };
 
+const goToScript = () => {
+  navigateTo("/script");
+};
+
 onMounted(() => window.addEventListener("keydown", handleKeydown));
 onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 
@@ -66,8 +68,8 @@ const hotspots = [
     id: 3,
     x: 73,
     y: 83,
-    label: "Read the script",
-    action: () => (isScriptOpen.value = true),
+    label: "Examine table",
+    action: () => goToScript(),
   },
 ];
 </script>
@@ -146,23 +148,6 @@ const hotspots = [
               {{ currentStillIndex + 1 }} / {{ stills.length }}
             </UBadge>
           </div>
-        </div>
-      </template>
-    </UModal>
-
-    <UModal
-      v-model:open="isScriptOpen"
-      :ui="{
-        overlay: 'backdrop-blur-sm',
-      }"
-    >
-      <template #content>
-        <div class="h-[90vh]">
-          <iframe
-            src="documents/script.pdf"
-            class="w-full h-[90vh]"
-            frameborder="0"
-          ></iframe>
         </div>
       </template>
     </UModal>
