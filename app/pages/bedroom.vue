@@ -24,9 +24,6 @@ const playlist = ref<Track[]>([]);
 const currentIndex = ref(0);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
 
-const isVideoPlayerOpen = ref(false);
-const currentYoutubeId = ref("");
-
 const isCastOpen = ref(false);
 
 const castList = ref<CastMember[]>([
@@ -146,6 +143,10 @@ const togglePlay = () => {
   }
 };
 
+const goToTelevision = () => {
+  navigateTo("/television");
+};
+
 const playTrackAtIndex = (index: number) => {
   currentIndex.value = index;
   isAudioPlaying.value = true;
@@ -173,11 +174,6 @@ watch(isAudioPlayerOpen, (isOpen) => {
     isAudioPlaying.value = false;
   }
 });
-
-const openVideoPlayer = (youtubeId: string) => {
-  currentYoutubeId.value = youtubeId;
-  isVideoPlayerOpen.value = true;
-};
 
 const openCastGallery = () => {
   isCastOpen.value = true;
@@ -207,8 +203,8 @@ const hotspots = [
     id: 2,
     x: 48,
     y: 66,
-    label: "Watch the BTS documentary",
-    action: () => openVideoPlayer("NFVXPxwkyHc"),
+    label: "Examine television",
+    action: () => goToTelevision(),
   },
   {
     id: 3,
@@ -365,32 +361,6 @@ const hotspots = [
               </div>
             </div>
           </div>
-        </div>
-      </template>
-    </UModal>
-
-    <UModal v-model:open="isVideoPlayerOpen" :ui="{ content: 'sm:max-w-5xl' }">
-      <template #content>
-        <div class="relative w-full aspect-video bg-black">
-          <iframe
-            v-if="isVideoPlayerOpen"
-            width="100%"
-            height="100%"
-            :src="`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&rel=0`"
-            title="Video Player"
-            frameborder="0"
-            allow="
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-              picture-in-picture;
-              web-share;
-            "
-            allowfullscreen
-            class="absolute inset-0 w-full h-full"
-          ></iframe>
         </div>
       </template>
     </UModal>
