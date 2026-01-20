@@ -41,6 +41,10 @@ const goToScript = () => {
   navigateTo("/script");
 };
 
+const goToStoryboard = () => {
+  navigateTo("/storyboard");
+};
+
 onMounted(() => window.addEventListener("keydown", handleKeydown));
 onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 
@@ -54,8 +58,8 @@ const hotspots = [
     id: 1,
     x: 13,
     y: 62,
-    label: "Explore the storyboard",
-    action: () => console.log("Storyboard clicked"),
+    label: "Examine shelf",
+    action: () => goToStoryboard(),
   },
   {
     id: 2,
