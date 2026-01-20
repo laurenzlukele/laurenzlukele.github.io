@@ -155,16 +155,6 @@ const hotspots = [
 </template>
 
 <style scoped>
-.viewport {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #000;
-  display: grid;
-  place-items: center;
-}
-
 .scene-container {
   position: relative;
   aspect-ratio: 16/9;
@@ -176,75 +166,6 @@ const hotspots = [
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.hotspot {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 5;
-}
-
-.hotspot-dot {
-  width: 12px;
-  height: 12px;
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-  transition: transform 0.2s ease;
-}
-
-.hotspot-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulse 2s infinite;
-  pointer-events: none;
-}
-
-.hotspot-label {
-  margin-top: 8px;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.hotspot:hover .hotspot-dot {
-  transform: scale(1.3);
-  background-color: #fbbf24;
-}
-
-.hotspot:hover .hotspot-label {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0;
-  }
 }
 
 .vignette {

@@ -15,22 +15,22 @@ const movie = {
     "真田 煌生 (Sanada  Kōki)",
     "愛恵 (MANAE)",
   ],
-  genres: ["Drama", "Romance", "Mystery"],
+  genres: ["Ensemble", "Mystery", "Drama"],
   description: [
     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
   ],
-  imdbUrl: "https://www.imdb.com",
+  tmdbUrl: "https://www.themoviedb.org/person/5112297-laurenz-lukele",
 };
 </script>
 
 <template>
   <div class="viewport">
-    <div class="background-wrapper">
+    <div class="scene-container">
       <NuxtImg
         src="/images/entrance.jpg"
         alt="Entrance"
-        class="room-image"
+        class="scene-image"
         preload
       />
     </div>
@@ -92,14 +92,14 @@ const movie = {
 
           <div class="actions">
             <UButton
-              :to="movie.imdbUrl"
+              :to="movie.tmdbUrl"
               target="_blank"
               icon="i-heroicons-arrow-top-right-on-square"
               color="yellow"
               variant="solid"
               size="lg"
             >
-              View on IMDb
+              View on TMDB
             </UButton>
           </div>
         </div>
@@ -111,30 +111,8 @@ const movie = {
 </template>
 
 <style scoped>
-.viewport {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #000;
-  display: grid;
-  place-items: center;
-}
-.background-wrapper {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.room-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .content-container {
-  position: relative;
-  z-index: 10;
+  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
