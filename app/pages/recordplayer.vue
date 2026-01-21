@@ -5,8 +5,10 @@ type Track = {
   duration: string; // manual string for UI (e.g., "3:45")
 };
 
-const isAudioPlayerOpen = ref(false);
+const isLidOpen = ref(false); 
+const isAudioPlayerOpen = ref(false); 
 const isAudioPlaying = ref(false);
+
 const playlist = ref<Track[]>([]);
 const currentIndex = ref(0);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
@@ -27,15 +29,6 @@ const togglePlay = () => {
     audioPlayer.value.pause();
     isAudioPlaying.value = false;
   }
-};
-
-const openAudioPlayer = (tracks: Track[]) => {
-  playlist.value = tracks;
-  currentIndex.value = 0;
-  isAudioPlayerOpen.value = true;
-  nextTick(() => {
-    isAudioPlaying.value = true;
-  });
 };
 
 const playTrackAtIndex = (index: number) => {
@@ -59,13 +52,34 @@ const prevTrack = () => {
   }
 };
 
+const openAudioPlayer = (tracks: Track[]) => {
+  playlist.value = tracks;
+  currentIndex.value = 0;
+  
+  isLidOpen.value = true;
+
+  // 0.8s delay before audio player opens
+  setTimeout(() => {
+    isAudioPlayerOpen.value = true;
+    nextTick(() => {
+      isAudioPlaying.value = true;
+    });
+  }, 500);
+};
+
+// Watch for UI closing to reset the Scene
 watch(isAudioPlayerOpen, (isOpen) => {
-  if (!isOpen && audioPlayer.value) {
-    audioPlayer.value.pause();
-    isAudioPlaying.value = false;
+  if (!isOpen) {
+    if (audioPlayer.value) {
+      audioPlayer.value.pause();
+      isAudioPlaying.value = false;
+    }
+
+    setTimeout(() => {
+      isLidOpen.value = false;
+    }, 300);
   }
 });
-
 
 const hotspots = [
   {
@@ -73,7 +87,9 @@ const hotspots = [
     x: 46,
     y: 60,
     label: "Open record player",
-      action: () =>
+    // Hide hotspot if lid is already open to prevent double clicking during transition
+    visible: () => !isLidOpen.value, 
+    action: () =>
       openAudioPlayer([
         { title: "Title Music", file: "track01.mp3", duration: "4:05" },
         { title: "The Discovery", file: "track02.mp3", duration: "1:36" },
@@ -89,28 +105,30 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg
-        :src="isAudioPlayerOpen? '/images/recordplayer-open.jpg' : '/images/recordplayer-closed.jpg'"
+        :src="isLidOpen ? '/images/recordplayer-open.jpg' : '/images/recordplayer-closed.jpg'"
         alt="Record player closeup"
         class="scene-image"
+        preload 
       />
 
-      <button
-        v-for="spot in hotspots"
-        :key="spot.id"
-        class="hotspot"
-        :style="{ left: `${spot.x}%`, top: `${spot.y}%` }"
-        :aria-label="spot.label"
-        @click="spot.action"
-      >
-        <span class="hotspot-ring"></span>
-        <span class="hotspot-dot"></span>
-        <span class="hotspot-label">{{ spot.label }}</span>
-      </button>
+      <template v-for="spot in hotspots" :key="spot.id">
+        <button
+          v-if="spot.visible ? spot.visible() : true"
+          class="hotspot"
+          :style="{ left: `${spot.x}%`, top: `${spot.y}%` }"
+          :aria-label="spot.label"
+          @click="spot.action"
+        >
+          <span class="hotspot-ring"></span>
+          <span class="hotspot-dot"></span>
+          <span class="hotspot-label">{{ spot.label }}</span>
+        </button>
+      </template>
     </div>
 
     <RoomNavigation :rooms="rooms"></RoomNavigation>
 
- <UModal
+    <UModal
       v-model:open="isAudioPlayerOpen"
       :ui="{ content: 'sm:max-w-4xl' }"
       title="Now Playing"
@@ -184,7 +202,7 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
                 </div>
               </button>
             </div>
-            <div class="p-6 bg-gray-900 border-t border-white/10">
+             <div class="p-6 bg-gray-900 border-t border-white/10">
               <div class="mb-4 text-center">
                 <div class="text-sm font-bold text-white">
                   {{ currentTrack?.title }}
@@ -233,10 +251,9 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
                 />
               </div>
             </div>
+                </div>
           </div>
-        </div>
-      </template>
+       </template>
     </UModal>
-
   </div>
 </template>
