@@ -1,42 +1,4 @@
 <script setup lang="ts">
-const isGalleryOpen = ref(false);
-const currentStillIndex = ref(0);
-
-const stills = ref([
-  "images/stills/still01.jpg",
-  "images/stills/still02.jpg",
-  "images/stills/still03.jpg",
-  "images/stills/still04.jpg",
-]);
-
-const currentStill = computed(() => stills.value[currentStillIndex.value]);
-const hasNextStill = computed(
-  () => currentStillIndex.value < stills.value.length - 1,
-);
-const hasPrevStill = computed(() => currentStillIndex.value > 0);
-
-const openGallery = () => {
-  currentStillIndex.value = 0;
-  isGalleryOpen.value = true;
-};
-
-const nextStill = () => {
-  if (hasNextStill.value) currentStillIndex.value++;
-  else currentStillIndex.value = 0; // Loop back to start
-};
-
-const prevStill = () => {
-  if (hasPrevStill.value) currentStillIndex.value--;
-  else currentStillIndex.value = stills.value.length - 1; // Loop to end
-};
-
-// Keyboard navigation for gallery
-const handleKeydown = (e: KeyboardEvent) => {
-  if (!isGalleryOpen.value) return;
-  if (e.key === "ArrowRight") nextStill();
-  if (e.key === "ArrowLeft") prevStill();
-};
-
 const goToScript = () => {
   navigateTo("/script");
 };
@@ -44,9 +6,9 @@ const goToScript = () => {
 const goToStoryboard = () => {
   navigateTo("/storyboard");
 };
-
-onMounted(() => window.addEventListener("keydown", handleKeydown));
-onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
+const goToWall = () => {
+  navigateTo("/stills");
+};
 
 const rooms = [
   { name: "Entrance", path: "/" },
@@ -65,8 +27,8 @@ const hotspots = [
     id: 2,
     x: 54,
     y: 20,
-    label: "Flick through movie stills",
-    action: () => openGallery(),
+    label: "Examine wall",
+    action: () => goToWall(),
   },
   {
     id: 3,
@@ -82,7 +44,6 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg src="/images/kitchen.jpg" alt="Kitchen" class="scene-image" />
-      <div class="vignette"></div>
       <button
         v-for="spot in hotspots"
         :key="spot.id"
@@ -98,63 +59,6 @@ const hotspots = [
     </div>
 
     <RoomNavigation :rooms="rooms"></RoomNavigation>
-
-    <UModal
-      v-model:open="isGalleryOpen"
-      :ui="{
-        content: 'sm:max-w-7xl',
-        overlay: 'backdrop-blur-sm',
-      }"
-    >
-      <template #content>
-        <div>
-          <div
-            class="relative max-w-full max-h-full flex items-center justify-center"
-          >
-            <img
-              :src="currentStill"
-              class="max-w-full max-h-[75vh] object-contain shadow-2xl rounded-sm ring-1 ring-white/10"
-              alt="Movie Still"
-            />
-          </div>
-
-          <div
-            class="absolute inset-0 pointer-events-none flex items-center justify-between px-4 md:px-14"
-          >
-            <UButton
-              icon="i-heroicons-chevron-left-20-solid"
-              size="xl"
-              color="black"
-              variant="solid"
-              :ui="{ rounded: 'rounded-full' }"
-              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
-              @click.stop="prevStill"
-            />
-
-            <UButton
-              icon="i-heroicons-chevron-right-20-solid"
-              size="xl"
-              color="black"
-              variant="solid"
-              :ui="{ rounded: 'rounded-full' }"
-              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
-              @click.stop="nextStill"
-            />
-          </div>
-
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <UBadge
-              color="gray"
-              variant="subtle"
-              size="lg"
-              class="font-mono tracking-widest bg-black/40 text-white/50 backdrop-blur-md border-none"
-            >
-              {{ currentStillIndex + 1 }} / {{ stills.length }}
-            </UBadge>
-          </div>
-        </div>
-      </template>
-    </UModal>
   </div>
 </template>
 
@@ -170,16 +74,5 @@ const hotspots = [
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0.2) 85%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
-  backdrop-filter: blur(1px); /* Slight blur to focus attention on content */
 }
 </style>
