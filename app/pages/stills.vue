@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const isGalleryOpen = ref(false);
 const areLightsOn = ref(false);
+const isFlickering = ref(false); // New state for the light effect
 const currentStillIndex = ref(0);
 
 const stills = ref([
@@ -19,12 +20,21 @@ const hasPrevStill = computed(() => currentStillIndex.value > 0);
 const openGallery = () => {
   currentStillIndex.value = 0;
 
-  areLightsOn.value = true;
+  isFlickering.value = true;
 
-  // 0.5s delay before gallery opens
+  // Change the image in the middle of the flicker (150ms in)
+  setTimeout(() => {
+    areLightsOn.value = true;
+  }, 150);
+
+  setTimeout(() => {
+    isFlickering.value = false;
+  }, 600);
+
+  // Open the modal after the lights are fully stable
   setTimeout(() => {
     isGalleryOpen.value = true;
-  }, 400);
+  }, 800);
 };
 
 const nextStill = () => {
@@ -71,13 +81,22 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
 
 <template>
   <div class="viewport">
-    <div class="scene-container">
+    <div class="scene-container relative overflow-hidden">
       <NuxtImg
         :src="areLightsOn ? '/images/lights-on.jpg' : '/images/lights-off.jpg'"
         alt="Wall with lights"
         class="scene-image"
         preload
       />
+
+      <div
+        class="absolute inset-0 bg-white pointer-events-none transition-opacity duration-100 ease-out z-10"
+        :class="
+          isFlickering
+            ? 'opacity-60 mix-blend-hard-light animate-flicker'
+            : 'opacity-0'
+        "
+      ></div>
 
       <template v-for="spot in hotspots" :key="spot.id">
         <button
@@ -104,15 +123,22 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
       }"
     >
       <template #content>
-        <div>
+        <div class="crt-turn-on">
           <div
             class="relative max-w-full max-h-full flex items-center justify-center"
           >
-            <img
-              :src="currentStill"
-              class="max-w-full max-h-[75vh] object-contain shadow-2xl rounded-sm ring-1 ring-white/10"
-              alt="Movie Still"
-            />
+            <div
+              class="absolute inset-0 z-20 pointer-events-none bg-[url('/noise.svg')] opacity-10"
+            ></div>
+
+            <Transition name="retro-fade" mode="out-in">
+              <img
+                :key="currentStillIndex"
+                :src="currentStill"
+                class="max-w-full max-h-[75vh] object-contain shadow-2xl"
+                alt="Movie Still"
+              />
+            </Transition>
           </div>
 
           <div
@@ -154,3 +180,59 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
     </UModal>
   </div>
 </template>
+
+<style scoped>
+@keyframes flicker {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 0.6s linear forwards;
+}
+
+.crt-turn-on {
+  animation: crtOpen 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  transform-origin: center;
+}
+
+@keyframes crtOpen {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.01) scaleX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(0.01) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+.retro-fade-enter-active,
+.retro-fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.retro-fade-enter-from,
+.retro-fade-leave-to {
+  opacity: 0;
+}
+</style>
