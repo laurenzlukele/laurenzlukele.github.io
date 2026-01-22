@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isStoryboardOpen = ref(true);
+const isStoryboardOpen = ref(false);
 
 const openStoryboard = () => {
   isStoryboardOpen.value = true;
