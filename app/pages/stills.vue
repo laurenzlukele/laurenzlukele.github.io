@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const isGalleryOpen = ref(false);
 const areLightsOn = ref(false);
-const isFlickering = ref(false); // New state for the light effect
+const isFlickering = ref(false);
 const currentStillIndex = ref(0);
 
 const stills = ref([
