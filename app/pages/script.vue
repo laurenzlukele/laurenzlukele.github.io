@@ -16,6 +16,19 @@ const hotspots = [
 ];
 
 const rooms = [{ name: "Kitchen", path: "/kitchen" }];
+
+const tabs = [
+  {
+    label: "English",
+    icon: "circle-flags:en",
+    slot: "english",
+  },
+  {
+    label: "Japanese",
+    icon: "circle-flags:jp",
+    slot: "japanese",
+  },
+];
 </script>
 
 <template>
@@ -50,13 +63,27 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
       }"
     >
       <template #content>
-        <div class="h-[90vh]">
-          <iframe
-            src="documents/script.pdf"
-            class="w-full h-[90vh]"
-            frameborder="0"
-          ></iframe>
-        </div>
+        <UTabs :items="tabs">
+          <template #english>
+            <div class="h-[90vh]">
+              <iframe
+                src="documents/script-en.pdf"
+                class="w-full h-[90vh]"
+                frameborder="0"
+              ></iframe>
+            </div>
+          </template>
+
+          <template #japanese>
+            <div class="h-[90vh]">
+              <iframe
+                src="documents/script-jp.pdf"
+                class="w-full h-[90vh]"
+                frameborder="0"
+              ></iframe>
+            </div>
+          </template>
+        </UTabs>
       </template>
     </UModal>
   </div>
