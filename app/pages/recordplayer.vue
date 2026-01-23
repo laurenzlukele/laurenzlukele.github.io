@@ -114,6 +114,11 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
         preload
       />
 
+      <!-- ghost image for nuxt crawler (only necessary for SSG)  -->
+      <div style="display: none" aria-hidden="true">
+        <NuxtImg src="/images/recordplayer-open.jpg" />
+      </div>
+
       <template v-for="spot in hotspots" :key="spot.id">
         <button
           v-if="spot.visible ? spot.visible() : true"

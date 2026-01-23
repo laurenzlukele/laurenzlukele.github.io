@@ -89,6 +89,11 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
         preload
       />
 
+      <!-- ghost image for nuxt crawler (only necessary for SSG)  -->
+      <div style="display: none" aria-hidden="true">
+        <NuxtImg src="/images/lights-on.jpg" />
+      </div>
+
       <div
         class="absolute inset-0 bg-white pointer-events-none transition-opacity duration-100 ease-out z-10"
         :class="
