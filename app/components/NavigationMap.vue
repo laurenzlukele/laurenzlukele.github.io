@@ -73,7 +73,7 @@ const openMap = () => {
       @click="triggerClick"
     >
       <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-24 bg-gray-800 -z-10 mt-8 rounded-full transition-opacity duration-300 group-hover:opacity-0"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-24 bg-gray-800 -z-10 mt-8 rounded-full transition-opacity duration-300 group-hover:opacity-0"
       />
 
       <div
