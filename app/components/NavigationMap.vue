@@ -117,10 +117,10 @@ const openMap = () => {
           <div
             class="relative w-full aspect-video shadow-inner overflow-hidden"
           >
-            <NuxtImg
-              src="/images/floorplan.png"
+            <img
+              src="/images/floorplan.webp"
               alt="Floor Plan Map"
-              class="absolute inset-0 w-full h-full object-fill opacity-90"
+              class="absolute inset-0 w-full h-full object-fill"
             />
 
             <button
