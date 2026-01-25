@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     classSuffix: "",
   },
   css: ["~/assets/css/main.css"],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@nuxt/eslint", "@nuxt/image", "@nuxt/ui"],
   vite: {
     plugins: [tailwindcss()],
