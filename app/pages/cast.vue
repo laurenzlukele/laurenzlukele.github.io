@@ -23,7 +23,7 @@ const isFlickering = ref(false);
 const castList = ref<CastMember[]>([
   {
     name: "新川千華 (Shinkawa Chiharu)",
-    role: "Role 1",
+    role: "Fumiko",
     occupation:
       "俳優、モーションキャプチャ、国内外の企業CM、クラシックバレ (Actress, motioncapture artist, international business, classical Ballet)",
     image: "/images/cast/shinkawa-chiharu.jpeg",
@@ -33,7 +33,7 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "真田 煌生 (Sanada  Kōki)",
-    role: "Role 2",
+    role: "Hansuke",
     occupation: "書道が得意なアーティストです (Künstler/Kaligraphist)",
     image: "/images/cast/sanada-koki.jpeg",
     socials: {
@@ -42,7 +42,7 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "愛恵 (MANAE)",
-    role: "Role 3",
+    role: "Helene",
     occupation: "舞台と映画の二刀流俳優 (theater and film actress)",
     image: "/images/cast/manae.jpeg",
     socials: {
@@ -52,7 +52,7 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "根本もえり (Nemoto Moeri)",
-    role: "Role 4",
+    role: "Hako",
     occupation: "俳優,マルチタレント (Actress, Multitalent)",
     image: "/images/cast/nemoto-moeri.jpeg",
     socials: {
@@ -62,14 +62,14 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "中野 響 (Nakano Hibiki)",
-    role: "Role 5",
+    role: "Park woman",
     occupation: "役者,アーティスト (Actress, Artist)",
     image: "/images/cast/nakano-hibiki.jpeg",
     socials: { instagram: "https://www.instagram.com/hibiki_n185/", imdb: "#" },
   },
   {
     name: "お名前 (Yamane Aya)",
-    role: "Role 6",
+    role: "Fumiko 2",
     occupation: "映像、舞台を中心に活動中 (Working in film and theater)",
     image: "/images/cast/yamane-aya.jpeg",
     socials: {
@@ -79,21 +79,21 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "遠藤幸介 (Endō Kōsuke)",
-    role: "Role 7",
+    role: "Ryo",
     occupation: "舞台 (Theater actor)",
     image: "/images/cast/endo-kosuke.jpeg",
     socials: { web: "https://a-and-h-promotion.com/artists/Kousuke_Endo/" },
   },
   {
     name: "宮園兼生 (Miyazono Kensei)",
-    role: "Role 8",
+    role: "Totsuya",
     occupation: "俳優、(Actor)",
     image: "/images/cast/miyazono-kensei.jpeg",
     socials: { web: "http://gushout.info/archives/author/kensei_miyazono" },
   },
   {
     name: "小嶋そら (Kojima Sora)",
-    role: "Role 9",
+    role: "Walking woman",
     occupation:
       "ジャズダンス、役者活動、映画作り。(Jazz dance, actress, film maker)",
     image: "/images/cast/kojima-sora.jpeg",
@@ -101,7 +101,7 @@ const castList = ref<CastMember[]>([
   },
   {
     name: "藤原 明日人 (Fujihara Asuto)",
-    role: "Role 10",
+    role: "Koji",
     occupation: "Comedian, screenwriter, content creator, television persona",
     image: "/images/cast/fujihara-asuto.jpeg",
     socials: {
