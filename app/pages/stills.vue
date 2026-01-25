@@ -25,11 +25,24 @@ const stills = ref([
   "images/stills/still14.jpg",
 ]);
 
-const currentStill = computed(() => stills.value[currentStillIndex.value]);
-const hasNextStill = computed(
-  () => currentStillIndex.value < stills.value.length - 1,
-);
-const hasPrevStill = computed(() => currentStillIndex.value > 0);
+const carousel = useTemplateRef("carousel");
+const activeIndex = ref(0);
+
+const onClickPrev = () => {
+  activeIndex.value--;
+};
+const onClickNext = () => {
+  activeIndex.value++;
+};
+function onSelect(index: number) {
+  activeIndex.value = index;
+}
+
+function select(index: number) {
+  activeIndex.value = index;
+
+  carousel.value?.emblaApi?.scrollTo(index);
+}
 
 const openGallery = () => {
   currentStillIndex.value = 0;
@@ -50,26 +63,6 @@ const openGallery = () => {
     isGalleryOpen.value = true;
   }, 800);
 };
-
-const nextStill = () => {
-  if (hasNextStill.value) currentStillIndex.value++;
-  else currentStillIndex.value = 0; // Loop back to start
-};
-
-const prevStill = () => {
-  if (hasPrevStill.value) currentStillIndex.value--;
-  else currentStillIndex.value = stills.value.length - 1; // Loop to end
-};
-
-// Keyboard navigation for gallery
-const handleKeydown = (e: KeyboardEvent) => {
-  if (!isGalleryOpen.value) return;
-  if (e.key === "ArrowRight") nextStill();
-  if (e.key === "ArrowLeft") prevStill();
-};
-
-onMounted(() => window.addEventListener("keydown", handleKeydown));
-onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 
 watch(isGalleryOpen, (isOpen) => {
   if (!isOpen) {
@@ -133,62 +126,35 @@ const hotspots = [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'sm:max-w-7xl',
+        content: 'sm:max-w-5xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-sm',
       }"
     >
       <template #content>
-        <div class="crt-turn-on">
-          <div
-            class="relative max-w-full max-h-full flex items-center justify-center"
+        <div class="flex-1 w-full">
+          <UCarousel
+            ref="carousel"
+            v-slot="{ item }"
+            arrows
+            :items="stills"
+            :prev="{ onClick: onClickPrev }"
+            :next="{ onClick: onClickNext }"
+            class="w-full max-w-4xl mx-auto"
+            @select="onSelect"
           >
+            <img :src="item" width="1280" height="1280" class="rounded-lg" />
+          </UCarousel>
+
+          <div class="flex gap-1 justify-between pt-4 max-w-4xl mx-auto">
             <div
-              class="absolute inset-0 z-20 pointer-events-none bg-[url('/noise.svg')] opacity-10"
-            ></div>
-
-            <Transition name="retro-fade" mode="out-in">
-              <img
-                :key="currentStillIndex"
-                :src="currentStill"
-                class="max-w-full max-h-[75vh] object-contain shadow-2xl"
-                alt="Movie Still"
-              />
-            </Transition>
-          </div>
-
-          <div
-            class="absolute inset-0 pointer-events-none flex items-center justify-between px-4 md:px-14"
-          >
-            <UButton
-              icon="i-heroicons-chevron-left-20-solid"
-              size="xl"
-              color="black"
-              variant="solid"
-              :ui="{ rounded: 'rounded-full' }"
-              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
-              @click.stop="prevStill"
-            />
-
-            <UButton
-              icon="i-heroicons-chevron-right-20-solid"
-              size="xl"
-              color="black"
-              variant="solid"
-              :ui="{ rounded: 'rounded-full' }"
-              class="pointer-events-auto bg-black/50 text-white hover:bg-white hover:text-black transition-transform hover:scale-110"
-              @click.stop="nextStill"
-            />
-          </div>
-
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <UBadge
-              color="gray"
-              variant="subtle"
-              size="lg"
-              class="font-mono tracking-widest bg-black/40 text-white/50 backdrop-blur-md border-none"
+              v-for="(item, index) in stills"
+              :key="index"
+              class="size-16 opacity-25 hover:opacity-100 transition-opacity"
+              :class="{ 'opacity-100': activeIndex === index }"
+              @click="select(index)"
             >
-              {{ currentStillIndex + 1 }} / {{ stills.length }}
-            </UBadge>
+              <img :src="item" width="88" height="88" class="rounded-lg" />
+            </div>
           </div>
         </div>
       </template>
@@ -220,11 +186,6 @@ const hotspots = [
 
 .animate-flicker {
   animation: flicker 0.6s linear forwards;
-}
-
-.crt-turn-on {
-  animation: crtOpen 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  transform-origin: center;
 }
 
 @keyframes crtOpen {
