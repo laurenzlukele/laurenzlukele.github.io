@@ -19,8 +19,6 @@ const hotspots = [
   },
 ];
 
-const rooms = [{ name: "Kitchen", path: "/kitchen" }];
-
 const tabs = [
   {
     label: "English",
@@ -57,8 +55,6 @@ const tabs = [
         <span class="hotspot-label">{{ spot.label }}</span>
       </button>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
 
     <UModal
       v-model:open="isScriptOpen"

@@ -18,8 +18,6 @@ const hotspots = [
     action: () => openStoryboard(),
   },
 ];
-
-const rooms = [{ name: "Kitchen", path: "/kitchen" }];
 </script>
 
 <template>
@@ -44,8 +42,6 @@ const rooms = [{ name: "Kitchen", path: "/kitchen" }];
         <span class="hotspot-label">{{ spot.label }}</span>
       </button>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
 
     <UModal
       v-model:open="isStoryboardOpen"

@@ -146,8 +146,6 @@ const hotspots = [
     action: () => openGallery(),
   },
 ];
-
-const rooms = [{ name: "Bedroom", path: "/bedroom" }];
 </script>
 
 <template>
@@ -188,8 +186,6 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
         </button>
       </template>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
 
     <UModal
       v-model:open="isGalleryOpen"

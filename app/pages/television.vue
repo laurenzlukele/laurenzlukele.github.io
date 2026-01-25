@@ -20,8 +20,6 @@ const hotspots = [
     action: () => openVideoPlayer("NFVXPxwkyHc"),
   },
 ];
-
-const rooms = [{ name: "Bedroom", path: "/bedroom" }];
 </script>
 
 <template>
@@ -46,8 +44,6 @@ const rooms = [{ name: "Bedroom", path: "/bedroom" }];
         <span class="hotspot-label">{{ spot.label }}</span>
       </button>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
 
     <UModal v-model:open="isVideoPlayerOpen" :ui="{ content: 'sm:max-w-5xl' }">
       <template #content>

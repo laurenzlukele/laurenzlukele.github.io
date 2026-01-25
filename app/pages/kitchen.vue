@@ -10,11 +10,7 @@ const goToWall = () => {
   navigateTo("/stills");
 };
 
-const rooms = [
-  { name: "Entrance", path: "/" },
-  { name: "Bedroom", path: "/bedroom" },
-];
-
+// Coordinates (x, y) are percentages relative to the IMAGE, not the screen
 const hotspots = [
   {
     id: 1,

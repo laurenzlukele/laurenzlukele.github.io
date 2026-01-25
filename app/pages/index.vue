@@ -1,9 +1,4 @@
 <script setup lang="ts">
-const rooms = [
-  { name: "Bedroom", path: "/bedroom" },
-  { name: "Kitchen", path: "/kitchen" },
-];
-
 const movie = {
   title: "Tethered",
   poster: "/images/poster.jpeg",

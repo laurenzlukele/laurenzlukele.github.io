@@ -11,12 +11,6 @@ const goToCast = () => {
   navigateTo("/cast");
 };
 
-const rooms = [
-  { name: "Entrance", path: "/" },
-  { name: "Kitchen", path: "/kitchen" },
-];
-
-// Define point-and-click hotspot
 // Coordinates (x, y) are percentages relative to the IMAGE, not the screen
 const hotspots = [
   {
