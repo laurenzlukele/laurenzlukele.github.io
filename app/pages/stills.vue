@@ -13,6 +13,16 @@ const stills = ref([
   "images/stills/still02.jpg",
   "images/stills/still03.jpg",
   "images/stills/still04.jpg",
+  "images/stills/still05.jpg",
+  "images/stills/still06.jpg",
+  "images/stills/still07.jpg",
+  "images/stills/still08.jpg",
+  "images/stills/still09.jpg",
+  "images/stills/still10.jpg",
+  "images/stills/still11.jpg",
+  "images/stills/still12.jpg",
+  "images/stills/still13.jpg",
+  "images/stills/still14.jpg",
 ]);
 
 const currentStill = computed(() => stills.value[currentStillIndex.value]);
