@@ -23,15 +23,15 @@ const mapZones = [
     w: 33,
     h: 64,
   },
-  //   {
-  //     id: "bathroom",
-  //     name: "Bathroom",
-  //     path: "/bathroom",
-  //     x: 80,
-  //     y: 12,
-  //     w: 12,
-  //     h: 80,
-  //   },
+  {
+    id: "bathroom",
+    name: "Bathroom",
+    path: "/bathroom",
+    x: 81,
+    y: 12,
+    w: 12,
+    h: 80,
+  },
   { id: "entrance", name: "Entrance", path: "/", x: 12, y: 78, w: 68, h: 16 },
 ];
 
