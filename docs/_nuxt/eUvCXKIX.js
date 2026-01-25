@@ -1,1 +1,0 @@
-import{_ as o}from"./DlAUqK2U.js";import{c as s,o as t,B as r}from"./C-678-Xe.js";const c={},a={class:"relative"};function n(e,l){return t(),s("div",a,[r(e.$slots,"default")])}const d=o(c,[["render",n]]);export{d as default};
