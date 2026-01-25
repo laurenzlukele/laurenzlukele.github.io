@@ -105,8 +105,6 @@ const movie = {
         </div>
       </div>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
   </div>
 </template>
 

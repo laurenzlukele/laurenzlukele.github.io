@@ -61,7 +61,5 @@ const hotspots = [
         <span class="hotspot-label">{{ spot.label }}</span>
       </button>
     </div>
-
-    <RoomNavigation :rooms="rooms"></RoomNavigation>
   </div>
 </template>

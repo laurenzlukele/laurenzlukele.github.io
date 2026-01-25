@@ -1,5 +1,6 @@
 <template>
   <div class="relative">
+    <NavigationMap />
     <slot />
     <div class="hidden sm:block absolute right-5 bottom-5">
       Created by
