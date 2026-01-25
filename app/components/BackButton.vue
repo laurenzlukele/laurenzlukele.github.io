@@ -28,10 +28,10 @@ const returnToScene = () => {
       />
 
       <div
-        class="relative z-10 w-20 h-20 border-4 border-black transform rotate-45 bg-amber-50 rounded-full transition-all ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:bg-amber-800 group-hover:rounded-br-none group-hover:-translate-y-2 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+        class="relative z-10 w-20 h-20 border-4 border-black transform rotate-45 bg-amber-50 rounded-full transition-all ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:bg-amber-800 group-hover:rounded-xl group-hover:-translate-y-2 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
         :class="
           isPressed
-            ? 'translate-y-1! translate-x-1! shadow-none! duration-100! bg-amber-800 rounded-br-none'
+            ? 'translate-y-1! translate-x-1! shadow-none! duration-100! bg-amber-800 rounded-xl'
             : 'duration-300'
         "
       >
