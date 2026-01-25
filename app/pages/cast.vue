@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "closeup",
+});
+
 type CastMember = {
   name: string;
   role: string; // character name

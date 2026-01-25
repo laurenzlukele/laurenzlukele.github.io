@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "closeup",
+});
+
 const isGalleryOpen = ref(false);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);

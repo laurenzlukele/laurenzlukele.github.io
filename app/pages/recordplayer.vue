@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "closeup",
+});
+
 type Track = {
   title: string;
   file: string;

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "closeup",
+});
+
 const isVideoPlayerOpen = ref(false);
 const currentYoutubeId = ref("");
 
