@@ -8,22 +8,39 @@ const areLightsOn = ref(false);
 const isFlickering = ref(false);
 const currentStillIndex = ref(0);
 
-const stills = ref([
-  "images/stills/still01.jpg",
-  "images/stills/still02.jpg",
-  "images/stills/still03.jpg",
-  "images/stills/still04.jpg",
-  "images/stills/still05.jpg",
-  "images/stills/still06.jpg",
-  "images/stills/still07.jpg",
-  "images/stills/still08.jpg",
-  "images/stills/still09.jpg",
-  "images/stills/still10.jpg",
-  "images/stills/still11.jpg",
-  "images/stills/still12.jpg",
-  "images/stills/still13.jpg",
-  "images/stills/still14.jpg",
-]);
+const stills = [
+  "images/stills/still01.webp",
+  "images/stills/still02.webp",
+  "images/stills/still03.webp",
+  "images/stills/still04.webp",
+  "images/stills/still05.webp",
+  "images/stills/still06.webp",
+  "images/stills/still07.webp",
+  "images/stills/still08.webp",
+  "images/stills/still09.webp",
+  "images/stills/still10.webp",
+  "images/stills/still11.webp",
+  "images/stills/still12.webp",
+  "images/stills/still13.webp",
+  "images/stills/still14.webp",
+];
+
+const thumbnails = [
+  "images/stills/still01-thumb.webp",
+  "images/stills/still02-thumb.webp",
+  "images/stills/still03-thumb.webp",
+  "images/stills/still04-thumb.webp",
+  "images/stills/still05-thumb.webp",
+  "images/stills/still06-thumb.webp",
+  "images/stills/still07-thumb.webp",
+  "images/stills/still08-thumb.webp",
+  "images/stills/still09-thumb.webp",
+  "images/stills/still10-thumb.webp",
+  "images/stills/still11-thumb.webp",
+  "images/stills/still12-thumb.webp",
+  "images/stills/still13-thumb.webp",
+  "images/stills/still14-thumb.webp",
+];
 
 const carousel = useTemplateRef("carousel");
 const activeIndex = ref(0);
@@ -142,18 +159,18 @@ const hotspots = [
             class="w-full max-w-4xl mx-auto"
             @select="onSelect"
           >
-            <img :src="item" width="1280" height="1280" class="rounded-lg" />
+            <img :src="item" width="3840" height="2160" class="rounded-lg" />
           </UCarousel>
 
           <div class="flex gap-1 justify-between pt-4 max-w-4xl mx-auto">
             <div
-              v-for="(item, index) in stills"
+              v-for="(item, index) in thumbnails"
               :key="index"
-              class="size-16 opacity-25 hover:opacity-100 transition-opacity"
+              class="opacity-25 hover:opacity-100 transition-opacity"
               :class="{ 'opacity-100': activeIndex === index }"
               @click="select(index)"
             >
-              <img :src="item" width="88" height="88" class="rounded-lg" />
+              <img :src="item" width="88" height="50" class="rounded-lg" />
             </div>
           </div>
         </div>
