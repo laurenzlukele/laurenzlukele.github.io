@@ -25,7 +25,12 @@ const hotspots = [
 <template>
   <div class="viewport">
     <div class="scene-container">
-      <NuxtImg src="/images/bathroom.jpg" alt="Bathroom" class="scene-image" />
+      <NuxtImg
+        src="/images/bathroom.jpg"
+        alt="Bathroom"
+        class="scene-image"
+        :class="{ 'bg-flicker': isGhostActive }"
+      />
 
       <div v-if="isGhostActive" class="ghost-wrapper">
         <NuxtImg
@@ -64,13 +69,12 @@ const hotspots = [
 
 .ghost-image {
   width: 100%;
-  opacity: 0; /* Start invisible, animation handles the rest */
-
+  opacity: 0;
   mix-blend-mode: hard-light;
   filter: contrast(1.2) brightness(0.8) grayscale(0.8);
 }
 
-/* --- FLICKER ANIMATION --- */
+/* --- GHOST ANIMATION (Unchanged) --- */
 @keyframes flicker {
   0% {
     opacity: 0;
@@ -123,14 +127,74 @@ const hotspots = [
     opacity: 0.9;
   }
   95% {
-    opacity: 0;
+    opacity: 0.8;
   }
   100% {
-    opacity: 0;
+    opacity: 0.5;
   }
 }
 
 .horror-flicker {
   animation: flicker 2s linear forwards;
+}
+
+/* ---  ROOM LIGHTS FLICKER --- */
+@keyframes room-flicker {
+  0% {
+    filter: brightness(1);
+  }
+  2% {
+    filter: brightness(0.1);
+  }
+  4% {
+    filter: brightness(1);
+  }
+  6% {
+    filter: brightness(0.1);
+  }
+  8% {
+    filter: brightness(1);
+  }
+  10% {
+    filter: brightness(1);
+  }
+  12% {
+    filter: brightness(0.2);
+  }
+  14% {
+    filter: brightness(1);
+  }
+  18% {
+    filter: brightness(1);
+  }
+  19% {
+    filter: brightness(0);
+  }
+  21% {
+    filter: brightness(1);
+  }
+  40% {
+    filter: brightness(1);
+  }
+  41% {
+    filter: brightness(0.2);
+  }
+  42% {
+    filter: brightness(1);
+  }
+  43% {
+    filter: brightness(0.5);
+  }
+  45% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.bg-flicker {
+  animation: room-flicker 2s linear forwards;
+  will-change: filter;
 }
 </style>
