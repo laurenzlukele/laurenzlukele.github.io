@@ -190,99 +190,92 @@ const hotspots = [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'sm:max-w-7xl bg-transparent shadow-none ring-0',
-        container: 'flex items-center justify-center min-h-full',
-        overlay: ' backdrop-blur-md',
+        content: 'max-w-7xl bg-transparent shadow-none ring-0',
+        overlay: 'backdrop-blur-md',
       }"
     >
       <template #content>
-        <div class="w-full py-8">
+        <div
+          class="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+        >
           <div
-            class="flex gap-8 overflow-x-auto px-12 pb-12 pt-4 snap-x snap-mandatory scrollbar-hide scroll-smooth"
+            v-for="(actor, index) in castList"
+            :key="index"
+            class="group relative flex-none w-80 snap-center flex flex-col gap-4"
           >
+            <div class="text-left space-y-1">
+              <h3 class="text-2xl font-bold text-white tracking-tight">
+                {{ actor.name }}
+              </h3>
+              <p
+                class="text-xs h-8 text-white/50 uppercase tracking-[0.2em] font-medium line-clamp-2"
+              >
+                {{ actor.occupation }}
+              </p>
+            </div>
+
             <div
-              v-for="(actor, index) in castList"
-              :key="index"
-              class="group relative flex-none w-80 snap-center flex flex-col gap-4"
+              class="relative w-full aspect-3/4 rounded-2xl overflow-hidden bg-gray-900 ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-500"
             >
-              <div class="text-left space-y-1">
-                <h3 class="text-2xl font-bold text-white tracking-tight">
-                  {{ actor.name }}
-                </h3>
-                <p
-                  class="text-xs h-8 text-white/50 uppercase tracking-[0.2em] font-medium line-clamp-2"
-                >
-                  {{ actor.occupation }}
-                </p>
-              </div>
+              <img
+                :src="actor.image"
+                :alt="actor.name"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
               <div
-                class="relative w-full aspect-3/4 rounded-2xl overflow-hidden bg-gray-900 ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-500"
-              >
-                <img
-                  :src="actor.image"
-                  :alt="actor.name"
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
+              ></div>
 
-                <div
-                  class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
-                ></div>
-
-                <div class="absolute bottom-4 left-4">
-                  <span class="text-white/80 text-sm font-serif italic"
-                    >as</span
-                  >
-                  <div class="text-white text-xl font-bold tracking-wide">
-                    {{ actor.role }}
-                  </div>
+              <div class="absolute bottom-4 left-4">
+                <span class="text-white/80 text-sm font-serif italic">as</span>
+                <div class="text-white text-xl font-bold tracking-wide">
+                  {{ actor.role }}
                 </div>
-              </div>
-
-              <div class="flex gap-1 transition-opacity duration-300">
-                <UButton
-                  v-if="actor.socials.instagram"
-                  icon="i-simple-icons-instagram"
-                  variant="ghost"
-                  color="white"
-                  size="xl"
-                  :to="actor.socials.instagram"
-                  target="_blank"
-                  class="hover:text-primary"
-                />
-                <UButton
-                  v-if="actor.socials.twitter"
-                  icon="i-simple-icons-twitter"
-                  variant="ghost"
-                  color="white"
-                  size="xl"
-                  :to="actor.socials.twitter"
-                  target="_blank"
-                />
-                <UButton
-                  v-if="actor.socials.imdb"
-                  icon="i-simple-icons-imdb"
-                  variant="ghost"
-                  color="white"
-                  size="xl"
-                  :to="actor.socials.imdb"
-                  target="_blank"
-                  class="hover:text-primary"
-                />
-                <UButton
-                  v-if="actor.socials.web"
-                  icon="i-lucide-globe"
-                  variant="ghost"
-                  color="white"
-                  size="xl"
-                  :to="actor.socials.web"
-                  target="_blank"
-                  class="hover:text-primary"
-                />
               </div>
             </div>
 
-            <div class="w-12 flex-none"></div>
+            <div class="flex gap-1 transition-opacity duration-300">
+              <UButton
+                v-if="actor.socials.instagram"
+                icon="i-simple-icons-instagram"
+                variant="ghost"
+                color="white"
+                size="xl"
+                :to="actor.socials.instagram"
+                target="_blank"
+                class="hover:text-primary"
+              />
+              <UButton
+                v-if="actor.socials.twitter"
+                icon="i-simple-icons-twitter"
+                variant="ghost"
+                color="white"
+                size="xl"
+                :to="actor.socials.twitter"
+                target="_blank"
+              />
+              <UButton
+                v-if="actor.socials.imdb"
+                icon="i-simple-icons-imdb"
+                variant="ghost"
+                color="white"
+                size="xl"
+                :to="actor.socials.imdb"
+                target="_blank"
+                class="hover:text-primary"
+              />
+              <UButton
+                v-if="actor.socials.web"
+                icon="i-lucide-globe"
+                variant="ghost"
+                color="white"
+                size="xl"
+                :to="actor.socials.web"
+                target="_blank"
+                class="hover:text-primary"
+              />
+            </div>
           </div>
         </div>
       </template>

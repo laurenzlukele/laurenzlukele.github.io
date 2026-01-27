@@ -13,15 +13,21 @@ const isLidOpen = ref(false);
 const isAudioPlayerOpen = ref(false);
 const isAudioPlaying = ref(false);
 
-const playlist = ref<Track[]>([]);
+const playlist: Track[] = [
+  { title: "Title Music", file: "track01.mp3", duration: "4:05" },
+  { title: "The Discovery", file: "track02.mp3", duration: "1:36" },
+  { title: "Running Away", file: "track03.mp3", duration: "2:12" },
+];
 const currentIndex = ref(0);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
 
-const currentTrack = computed(() => playlist.value[currentIndex.value]);
+const currentTrack = computed(() => {
+  return playlist[currentIndex.value];
+});
 const currentSrc = computed(() =>
   currentTrack.value ? `/audio/${currentTrack.value.file}` : "",
 );
-const hasNext = computed(() => currentIndex.value < playlist.value.length - 1);
+const hasNext = computed(() => currentIndex.value < playlist.length - 1);
 const hasPrev = computed(() => currentIndex.value > 0);
 
 const togglePlay = () => {
@@ -56,13 +62,11 @@ const prevTrack = () => {
   }
 };
 
-const openAudioPlayer = (tracks: Track[]) => {
-  playlist.value = tracks;
+const openAudioPlayer = () => {
   currentIndex.value = 0;
 
   isLidOpen.value = true;
 
-  // 0.5s delay before audio player opens
   setTimeout(() => {
     isAudioPlayerOpen.value = true;
     nextTick(() => {
@@ -92,12 +96,7 @@ const hotspots = [
     label: "Open record player",
     // Hide hotspot if lid is already open to prevent double clicking during transition
     visible: () => !isLidOpen.value,
-    action: () =>
-      openAudioPlayer([
-        { title: "Title Music", file: "track01.mp3", duration: "4:05" },
-        { title: "The Discovery", file: "track02.mp3", duration: "1:36" },
-        { title: "Running Away", file: "track03.mp3", duration: "2:12" },
-      ]),
+    action: () => openAudioPlayer(),
   },
 ];
 </script>
@@ -138,7 +137,7 @@ const hotspots = [
 
     <UModal
       v-model:open="isAudioPlayerOpen"
-      :ui="{ content: 'sm:max-w-4xl' }"
+      :ui="{ content: 'max-w-4xl', overlay: 'backdrop-blur-md' }"
       title="Now Playing"
     >
       <template #content>
@@ -146,10 +145,10 @@ const hotspots = [
           class="flex flex-col md:flex-row h-125 overflow-hidden bg-gray-900 text-white"
         >
           <div
-            class="w-full md:w-5/12 bg-linear-to-br from-indigo-900 to-purple-900 flex flex-col items-center justify-center p-8 relative"
+            class="w-full md:w-5/12 bg-linear-to-br from-indigo-900 to-purple-900 flex flex-col items-center justify-center p-4 lg:p-8 relative"
           >
             <div
-              class="relative w-48 h-48 md:w-56 md:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
+              class="shrink-0 relative w-48 h-48 lg:w-56 lg:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
             >
               <div
                 class="w-full h-full rounded-full overflow-hidden bg-black"
@@ -163,7 +162,7 @@ const hotspots = [
                 class="absolute w-16 h-16 bg-red-600 rounded-full border-4 border-black z-10"
               ></div>
             </div>
-            <div class="mt-8 text-center">
+            <div class="mt-5 lg:mt-8 text-center">
               <h2 class="text-2xl font-bold tracking-tight">Tethered</h2>
               <p class="text-white/60 text-sm mt-1 uppercase tracking-widest">
                 Original Soundtrack
@@ -171,7 +170,7 @@ const hotspots = [
             </div>
           </div>
           <div class="w-full md:w-7/12 bg-gray-950 flex flex-col">
-            <div class="p-6 border-b border-white/10">
+            <div class="hidden lg:block p-6 border-b border-white/10">
               <h3 class="text-lg font-medium text-white/90">Tracklist</h3>
             </div>
             <div class="flex-1 overflow-y-auto p-2 space-y-1">

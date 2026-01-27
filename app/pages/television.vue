@@ -45,9 +45,15 @@ const hotspots = [
       </button>
     </div>
 
-    <UModal v-model:open="isVideoPlayerOpen" :ui="{ content: 'sm:max-w-5xl' }">
+    <UModal
+      v-model:open="isVideoPlayerOpen"
+      :ui="{
+        content: 'max-w-5xl bg-transparent shadow-none ring-0',
+        overlay: 'backdrop-blur-md',
+      }"
+    >
       <template #content>
-        <div class="relative w-full aspect-video bg-black">
+        <div class="aspect-video w-full max-h-[90vh] max-w-[142vh] mx-auto">
           <iframe
             v-if="isVideoPlayerOpen"
             width="100%"
@@ -61,11 +67,8 @@ const hotspots = [
               clipboard-write;
               encrypted-media;
               gyroscope;
-              picture-in-picture;
-              web-share;
             "
             allowfullscreen
-            class="absolute inset-0 w-full h-full"
           ></iframe>
         </div>
       </template>
