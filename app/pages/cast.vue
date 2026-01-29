@@ -16,7 +16,7 @@ type CastMember = {
   };
 };
 
-const isGalleryOpen = ref(false);
+const isGalleryOpen = ref(true);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);
 
@@ -202,14 +202,16 @@ const hotspots = [
           <div
             v-for="(actor, index) in castList"
             :key="index"
-            class="group relative flex-none w-80 snap-center flex flex-col gap-4"
+            class="group relative flex-none landscape:w-50 lg:landscape:w-80 snap-center flex flex-col landscape:gap-1 lg:landscape:gap-4"
           >
             <div class="text-left space-y-1">
-              <h3 class="text-2xl font-bold text-white tracking-tight">
+              <h3
+                class="line-clamp-1 landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
+              >
                 {{ actor.name }}
               </h3>
               <p
-                class="text-xs h-8 text-white/50 uppercase tracking-[0.2em] font-medium line-clamp-2"
+                class="text-xs h-8 text-white/50 uppercase tracking-[0.2em] font-medium line-clamp-2 landscape:hidden lg:landscape:block"
               >
                 {{ actor.occupation }}
               </p>
@@ -236,7 +238,9 @@ const hotspots = [
               </div>
             </div>
 
-            <div class="flex gap-1 transition-opacity duration-300">
+            <div
+              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300"
+            >
               <UButton
                 v-if="actor.socials.instagram"
                 icon="i-simple-icons-instagram"
