@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const VuePdfEmbed = defineAsyncComponent(() => import("vue-pdf-embed"));
+
 definePageMeta({
   layout: "closeup",
 });
@@ -45,18 +47,18 @@ const hotspots = [
 
     <UModal
       v-model:open="isStoryboardOpen"
-      :ui="{
-        overlay: 'backdrop-blur-sm',
-        content: 'max-w-6xl',
-      }"
+      :ui="{ overlay: 'backdrop-blur-sm', content: 'max-w-6xl' }"
     >
       <template #content>
         <div class="h-[90vh]">
-          <iframe
-            src="documents/storyboard.pdf"
-            class="w-full h-full"
-            frameborder="0"
-          ></iframe>
+          <ClientOnly>
+            <VuePdfEmbed
+              source="/documents/storyboard.pdf"
+              class="w-full"
+              :text-layer="false"
+              :annotation-layer="false"
+            />
+          </ClientOnly>
         </div>
       </template>
     </UModal>

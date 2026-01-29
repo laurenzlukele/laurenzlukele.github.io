@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const VuePdfEmbed = defineAsyncComponent(() => import("vue-pdf-embed"));
+
 definePageMeta({
   layout: "closeup",
 });
@@ -65,22 +67,28 @@ const tabs = [
       <template #content>
         <UTabs :items="tabs">
           <template #english>
-            <div class="h-[90vh]">
-              <iframe
-                src="documents/script-en.pdf"
-                class="w-full h-[90vh]"
-                frameborder="0"
-              ></iframe>
+            <div class="h-[90vh] overflow-y-auto">
+              <ClientOnly>
+                <VuePdfEmbed
+                  source="/documents/script-en.pdf"
+                  class="w-full"
+                  :text-layer="false"
+                  :annotation-layer="false"
+                />
+              </ClientOnly>
             </div>
           </template>
 
           <template #japanese>
-            <div class="h-[90vh]">
-              <iframe
-                src="documents/script-jp.pdf"
-                class="w-full h-[90vh]"
-                frameborder="0"
-              ></iframe>
+            <div class="h-[90vh] overflow-y-auto">
+              <ClientOnly>
+                <VuePdfEmbed
+                  source="/documents/script-jp.pdf"
+                  class="w-full"
+                  :text-layer="false"
+                  :annotation-layer="false"
+                />
+              </ClientOnly>
             </div>
           </template>
         </UTabs>
