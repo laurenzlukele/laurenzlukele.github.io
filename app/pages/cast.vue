@@ -5,8 +5,8 @@ definePageMeta({
 
 type CastMember = {
   name: string;
-  role: string; // character name
-  occupation: string; // e.g. "Actress", "Stunt Double"
+  role: string;
+  occupation: string;
   image: string;
   socials: {
     instagram?: string;
@@ -19,6 +19,16 @@ type CastMember = {
 const isGalleryOpen = ref(true);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);
+
+const expandedActorIndex = ref<number | null>(null);
+
+const toggleActor = (index: number) => {
+  if (expandedActorIndex.value === index) {
+    expandedActorIndex.value = null;
+  } else {
+    expandedActorIndex.value = index;
+  }
+};
 
 const castList = ref<CastMember[]>([
   {
@@ -112,17 +122,12 @@ const castList = ref<CastMember[]>([
 
 const openGallery = () => {
   isFlickering.value = true;
-
-  // Change the image in the middle of the flicker (150ms in)
   setTimeout(() => {
     areLightsOn.value = true;
   }, 150);
-
   setTimeout(() => {
     isFlickering.value = false;
   }, 600);
-
-  // Open the modal after the lights are fully stable
   setTimeout(() => {
     isGalleryOpen.value = true;
   }, 800);
@@ -133,6 +138,7 @@ watch(isGalleryOpen, (isOpen) => {
     setTimeout(() => {
       areLightsOn.value = false;
     }, 400);
+    expandedActorIndex.value = null;
   }
 });
 
@@ -158,7 +164,6 @@ const hotspots = [
         preload
       />
 
-      <!-- ghost image for nuxt crawler (only necessary for SSG)  -->
       <div style="display: none" aria-hidden="true">
         <NuxtImg src="/images/closet-on.jpg" />
       </div>
@@ -202,11 +207,21 @@ const hotspots = [
           <div
             v-for="(actor, index) in castList"
             :key="index"
-            class="group relative flex-none landscape:w-50 lg:landscape:w-80 snap-center flex flex-col landscape:gap-1 lg:landscape:gap-4"
+            class="group relative flex-none snap-center flex flex-col transition-all duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
+            :class="[
+              /* Default Portrait Width */
+              'w-60',
+              /* Desktop Landscape Width */
+              'lg:landscape:w-80 lg:landscape:gap-4',
+              /* Mobile Landscape Width Logic (Expandable) */
+              expandedActorIndex === index
+                ? 'landscape:w-lg'
+                : 'landscape:w-48',
+            ]"
           >
-            <div class="text-left space-y-1">
+            <div class="text-left space-y-1 mb-2">
               <h3
-                class="line-clamp-1 landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
+                class="line-clamp-1 text-base landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
               >
                 {{ actor.name }}
               </h3>
@@ -218,28 +233,116 @@ const hotspots = [
             </div>
 
             <div
-              class="relative w-full aspect-3/4 rounded-2xl overflow-hidden bg-gray-900 ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-500"
+              class="flex flex-col landscape:flex-row lg:landscape:flex-col items-start landscape:gap-0 lg:landscape:gap-4 transition-all duration-500"
             >
-              <img
-                :src="actor.image"
-                :alt="actor.name"
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+              <div
+                class="relative shrink-0 rounded-2xl overflow-hidden bg-gray-900 ring-1 ring-white/10 transition-all duration-500 cursor-pointer"
+                :class="[
+                  'w-full aspect-3/4', // Default
+                  'landscape:w-48 landscape:h-auto', // Mobile Landscape Size
+                  'lg:landscape:w-full', // Desktop Landscape Reset
+                  expandedActorIndex === index
+                    ? 'ring-primary-500/50 rounded-r-none'
+                    : 'group-hover:ring-white/30',
+                ]"
+                @click="toggleActor(index)"
+              >
+                <img
+                  :src="actor.image"
+                  :alt="actor.name"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  :class="{
+                    'group-hover:scale-105': expandedActorIndex !== index,
+                  }"
+                />
+
+                <div
+                  class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
+                ></div>
+
+                <div class="absolute bottom-4 left-4">
+                  <span class="text-white/80 text-sm font-serif italic"
+                    >as</span
+                  >
+                  <div class="text-white text-xl font-bold tracking-wide">
+                    {{ actor.role }}
+                  </div>
+                </div>
+
+                <div
+                  v-if="expandedActorIndex !== index"
+                  class="absolute top-2 right-2 hidden landscape:block lg:landscape:hidden animate-pulse"
+                >
+                  <UIcon
+                    name="i-heroicons-information-circle"
+                    class="text-white w-6 h-6 drop-shadow-md"
+                  />
+                </div>
+              </div>
 
               <div
-                class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
-              ></div>
+                class="flex h-full flex-col justify-center bg-black/40 backdrop-blur-sm rounded-r-2xl landscape:flex lg:landscape:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
+                :class="
+                  expandedActorIndex === index
+                    ? 'w-80 opacity-100 p-4'
+                    : 'w-0 opacity-0'
+                "
+              >
+                <div class="min-w-[18rem] space-y-4">
+                  <p class="text-white/90 text-sm leading-relaxed">
+                    {{ actor.occupation }}
+                  </p>
 
-              <div class="absolute bottom-4 left-4">
-                <span class="text-white/80 text-sm font-serif italic">as</span>
-                <div class="text-white text-xl font-bold tracking-wide">
-                  {{ actor.role }}
+                  <p class="text-white/60 text-xs leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+
+                  <div class="flex gap-2 pt-2 border-t border-white/10">
+                    <UButton
+                      v-if="actor.socials.instagram"
+                      icon="i-simple-icons-instagram"
+                      variant="ghost"
+                      color="white"
+                      size="md"
+                      :to="actor.socials.instagram"
+                      target="_blank"
+                    />
+                    <UButton
+                      v-if="actor.socials.twitter"
+                      icon="i-simple-icons-twitter"
+                      variant="ghost"
+                      color="white"
+                      size="md"
+                      :to="actor.socials.twitter"
+                      target="_blank"
+                    />
+                    <UButton
+                      v-if="actor.socials.imdb"
+                      icon="i-simple-icons-imdb"
+                      variant="ghost"
+                      color="white"
+                      size="md"
+                      :to="actor.socials.imdb"
+                      target="_blank"
+                    />
+                    <UButton
+                      v-if="actor.socials.web"
+                      icon="i-lucide-globe"
+                      variant="ghost"
+                      color="white"
+                      size="md"
+                      :to="actor.socials.web"
+                      target="_blank"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
             <div
-              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300"
+              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300 mt-2"
             >
               <UButton
                 v-if="actor.socials.instagram"
@@ -312,35 +415,6 @@ const hotspots = [
 
 .animate-flicker {
   animation: flicker 0.6s linear forwards;
-}
-
-.crt-turn-on {
-  animation: crtOpen 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  transform-origin: center;
-}
-
-@keyframes crtOpen {
-  0% {
-    opacity: 0;
-    transform: scaleY(0.01) scaleX(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(0.01) scaleX(1);
-  }
-  100% {
-    transform: scaleY(1) scaleX(1);
-  }
-}
-
-.retro-fade-enter-active,
-.retro-fade-leave-active {
-  transition: opacity 0.4s ease;
-}
-
-.retro-fade-enter-from,
-.retro-fade-leave-to {
-  opacity: 0;
 }
 
 /* Scrollbar Hide Utility */
