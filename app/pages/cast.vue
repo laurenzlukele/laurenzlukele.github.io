@@ -193,6 +193,7 @@ const hotspots = [
         content: 'max-w-7xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-md',
       }"
+      title="Cast gallery"
     >
       <template #content>
         <div

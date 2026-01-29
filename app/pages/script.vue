@@ -63,6 +63,7 @@ const tabs = [
       :ui="{
         overlay: 'backdrop-blur-sm',
       }"
+      title="Script"
     >
       <template #content>
         <UTabs :items="tabs">

@@ -48,6 +48,7 @@ const hotspots = [
     <UModal
       v-model:open="isStoryboardOpen"
       :ui="{ overlay: 'backdrop-blur-sm', content: 'max-w-6xl' }"
+      title="Storyboard"
     >
       <template #content>
         <div class="h-[90vh] overflow-y-auto">

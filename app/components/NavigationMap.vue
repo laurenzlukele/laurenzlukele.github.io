@@ -113,6 +113,7 @@ const openMap = () => {
         content: 'lg:max-w-6xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-sm',
       }"
+      title="Navigation map"
     >
       <template #content>
         <div class="relative grow aspect-video shadow-inner overflow-hidden">

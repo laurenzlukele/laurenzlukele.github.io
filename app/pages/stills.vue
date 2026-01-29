@@ -146,6 +146,7 @@ const hotspots = [
         content: 'lg:max-w-5xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-sm',
       }"
+      title="Stills"
     >
       <template #content>
         <div class="flex-1 w-full">

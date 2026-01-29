@@ -51,6 +51,7 @@ const hotspots = [
         content: 'max-w-5xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-md',
       }"
+      title="Trailer"
     >
       <template #content>
         <div class="aspect-video w-full max-h-[90vh] max-w-[142vh] mx-auto">
