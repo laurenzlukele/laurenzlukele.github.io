@@ -50,14 +50,9 @@ const hotspots = [
       :ui="{ overlay: 'backdrop-blur-sm', content: 'max-w-6xl' }"
     >
       <template #content>
-        <div class="h-[90vh]">
+        <div class="h-[90vh] overflow-y-auto">
           <ClientOnly>
-            <VuePdfEmbed
-              source="/documents/storyboard.pdf"
-              class="w-full"
-              :text-layer="false"
-              :annotation-layer="false"
-            />
+            <VuePdfEmbed source="/documents/storyboard.pdf" class="w-full" />
           </ClientOnly>
         </div>
       </template>
