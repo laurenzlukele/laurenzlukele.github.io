@@ -138,17 +138,17 @@ const hotspots = [
     <UModal
       v-model:open="isAudioPlayerOpen"
       :ui="{ content: 'max-w-4xl', overlay: 'backdrop-blur-md' }"
-      title="Now Playing"
+      title="Tracklist"
     >
       <template #content>
         <div
-          class="flex flex-col md:flex-row h-125 overflow-hidden bg-gray-900 text-white"
+          class="flex flex-col landscape:flex-row md:flex-row h-[85vh] md:h-125 overflow-hidden bg-gray-900 text-white"
         >
           <div
-            class="w-full md:w-5/12 bg-linear-to-br from-indigo-900 to-purple-900 flex flex-col items-center justify-center p-4 lg:p-8 relative"
+            class="w-full landscape:w-5/12 md:w-5/12 bg-linear-to-br from-indigo-900 to-purple-900 flex flex-col items-center justify-center p-4 landscape:p-2 lg:p-8 relative shrink-0"
           >
             <div
-              class="shrink-0 relative w-48 h-48 lg:w-56 lg:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
+              class="shrink-0 relative w-48 h-48 landscape:w-32 landscape:h-32 lg:w-56 lg:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
             >
               <div
                 class="w-full h-full rounded-full overflow-hidden bg-black"
@@ -159,20 +159,27 @@ const hotspots = [
                 ></div>
               </div>
               <div
-                class="absolute w-16 h-16 bg-red-600 rounded-full border-4 border-black z-10"
+                class="absolute w-16 h-16 landscape:w-10 landscape:h-10 bg-red-600 rounded-full border-4 border-black z-10"
               ></div>
             </div>
-            <div class="mt-5 lg:mt-8 text-center">
-              <h2 class="text-2xl font-bold tracking-tight">Tethered</h2>
+
+            <div class="mt-5 landscape:mt-2 lg:mt-8 text-center">
+              <h2 class="text-2xl landscape:text-lg font-bold tracking-tight">
+                Tethered
+              </h2>
               <p class="text-white/60 text-sm mt-1 uppercase tracking-widest">
                 Original Soundtrack
               </p>
             </div>
           </div>
-          <div class="w-full md:w-7/12 bg-gray-950 flex flex-col">
+
+          <div
+            class="w-full landscape:w-7/12 md:w-7/12 bg-gray-950 flex flex-col min-h-0"
+          >
             <div class="hidden lg:block p-6 border-b border-white/10">
               <h3 class="text-lg font-medium text-white/90">Tracklist</h3>
             </div>
+
             <div class="flex-1 overflow-y-auto p-2 space-y-1">
               <button
                 v-for="(track, index) in playlist"
@@ -195,6 +202,7 @@ const hotspots = [
                     <span v-else>{{ index + 1 }}</span>
                   </div>
                   <div
+                    class="truncate"
                     :class="
                       currentIndex === index
                         ? 'text-primary-400 font-bold'
@@ -209,8 +217,9 @@ const hotspots = [
                 </div>
               </button>
             </div>
-            <div class="p-6 bg-gray-900 border-t border-white/10">
-              <div class="mb-4 text-center">
+
+            <div class="p-6 landscape:p-3 bg-gray-900 border-t border-white/10">
+              <div class="mb-4 landscape:mb-2 text-center">
                 <div class="text-sm font-bold text-white">
                   {{ currentTrack?.title }}
                 </div>
