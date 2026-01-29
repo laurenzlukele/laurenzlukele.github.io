@@ -143,7 +143,7 @@ const hotspots = [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'sm:max-w-5xl bg-transparent shadow-none ring-0',
+        content: 'lg:max-w-5xl bg-transparent shadow-none ring-0',
         overlay: 'backdrop-blur-sm',
       }"
     >
