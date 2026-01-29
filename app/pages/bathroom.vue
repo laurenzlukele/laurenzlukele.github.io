@@ -32,7 +32,7 @@ const hotspots = [
         :class="{ 'bg-flicker': isGhostActive }"
       />
 
-      <div v-if="isGhostActive" class="ghost-wrapper">
+      <div v-show="isGhostActive" class="ghost-wrapper">
         <NuxtImg
           src="/images/ghost-woman.png"
           alt="Ghost"
