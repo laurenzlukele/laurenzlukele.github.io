@@ -12,91 +12,96 @@ const movie = {
   ],
   genres: ["Ensemble", "Mystery", "Drama"],
   description: [
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam",
+    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+    "Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   ],
   tmdbUrl: "https://www.themoviedb.org/person/5112297-laurenz-lukele",
 };
 </script>
 
 <template>
-  <div class="viewport">
-    <div class="scene-container">
+  <div class="relative w-full h-dvh overflow-hidden">
+    <div class="absolute inset-0 z-0">
       <NuxtImg
         src="/images/entrance.jpg"
-        alt="Entrance"
-        class="scene-image"
+        alt="Background"
+        class="w-full h-full object-cover opacity-60"
         preload
       />
+      <!-- <div class="absolute inset-0 backdrop-blur-xs"></div> -->
     </div>
 
-    <div class="content-container">
-      <div class="movie-card">
-        <div class="poster-wrapper">
-          <NuxtImg
-            :src="movie.poster"
-            :alt="movie.title"
-            class="movie-poster"
-            width="300"
-            height="450"
-          />
-        </div>
+    <div
+      class="relative flex flex-col landscape:flex-row h-full w-full max-w-7xl mx-auto"
+    >
+      <div
+        class="hidden landscape:block landscape:w-[35%] shrink-0 self-center"
+      >
+        <NuxtImg
+          :src="movie.poster"
+          :alt="movie.title"
+          class="w-full object-contain"
+        />
+      </div>
 
-        <div class="details-wrapper">
-          <div class="header">
-            <h1 class="movie-title">{{ movie.title }}</h1>
-            <div class="meta-row">
-              <span class="year">{{ movie.year }}</span>
-              <span class="dot">•</span>
-              <span class="length">{{ movie.length }}</span>
+      <div
+        class="flex-1 flex flex-col justify-center p-6 landscape:p-6 landscape:pl-8 overflow-hidden"
+      >
+        <div class="mb-2 landscape:mb-3">
+          <h1 class="landscape:text-4xl lg:landscape:text-5xl font-black mb-3">
+            {{ movie.title }}
+          </h1>
+          <div
+            class="flex items-center text-gray-400 landscape:text-sm lg:landscape:text-base font-medium space-x-2"
+          >
+            <span>{{ movie.year }}</span>
+            <span class="text-gray-600">•</span>
+            <span>{{ movie.length }}</span>
+            <span class="text-gray-600 hidden landscape:inline">•</span>
+            <div class="flex gap-1.5 ml-2">
+              <span
+                v-for="genre in movie.genres"
+                :key="genre"
+                class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-gray-300 border border-white/5"
+              >
+                {{ genre }}
+              </span>
             </div>
           </div>
+        </div>
 
-          <div class="tags">
-            <UBadge
-              v-for="genre in movie.genres"
-              :key="genre"
-              color="gray"
-              variant="solid"
-              class="mr-2 mb-2"
-            >
-              {{ genre }}
-            </UBadge>
-          </div>
+        <div
+          class="space-y-1 mb-3 landscape:mb-4 text-xs landscape:text-xs lg:landscape:text-base text-gray-400"
+        >
+          <p class="truncate">
+            <strong class="text-white">Dir:</strong> {{ movie.director }}
+          </p>
+          <p class="truncate">
+            <strong class="text-white">Cast:</strong>
+            {{ movie.actors.join(", ") }}
+          </p>
+        </div>
 
-          <div class="credits">
-            <p>
-              <strong>Director:</strong>
-              <span class="text-gray-300">{{ movie.director }}</span>
-            </p>
-            <p>
-              <strong>Stars:</strong>
-              <span class="text-gray-300">{{ movie.actors.join(", ") }}</span>
-            </p>
-          </div>
+        <div
+          class="mb-4 landscape:mb-5 text-sm landscape:text-sm lg:landscape:text-base landscape:leading-relaxed text-toned"
+        >
+          <p
+            class="line-clamp-3 landscape:line-clamp-4 lg:line-clamp-none max-w-lg"
+          >
+            {{ movie.description.join(" ") }}
+          </p>
+        </div>
 
-          <div class="synopsis">
-            <p
-              v-for="(para, index) in movie.description"
-              :key="index"
-              class="mb-4"
-            >
-              {{ para }}
-            </p>
-          </div>
-
-          <div class="actions">
-            <UButton
-              :to="movie.tmdbUrl"
-              target="_blank"
-              icon="i-heroicons-arrow-top-right-on-square"
-              color="yellow"
-              variant="solid"
-              size="lg"
-            >
-              View on TMDB
-            </UButton>
-          </div>
+        <div>
+          <UButton
+            :to="movie.tmdbUrl"
+            target="_blank"
+            icon="i-heroicons-arrow-top-right-on-square"
+            variant="solid"
+            size="md"
+          >
+            View on TMDB
+          </UButton>
         </div>
       </div>
     </div>
@@ -104,119 +109,7 @@ const movie = {
 </template>
 
 <style scoped>
-.content-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  padding-bottom: 6rem;
-}
-
-.nav-wrapper {
-  position: absolute;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 20;
-}
-
-.movie-card {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 2.5rem;
-  max-width: 1000px;
-  width: 100%;
-  background-color: rgba(20, 20, 20, 0.75); /* Dark semi-transparent */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  padding: 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-.movie-poster {
-  width: 100%;
-  height: auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  aspect-ratio: 2/3;
-  object-fit: cover;
-  background-color: #333;
-}
-
-.movie-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.meta-row {
-  display: flex;
-  align-items: center;
-  color: #9ca3af; /* Gray-400 */
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.dot {
-  margin: 0 0.5rem;
-}
-
-.tags {
-  margin-bottom: 1.5rem;
-}
-
-.credits {
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  color: #d1d5db; /* Gray-300 */
-}
-
-.credits strong {
-  color: white;
-  margin-right: 0.5rem;
-}
-
-.synopsis {
-  color: #d1d5db;
-  line-height: 1.6;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  max-width: 65ch;
-}
-
-@media (max-width: 768px) {
-  .movie-card {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-    overflow-y: auto;
-    max-height: 80vh; /* Allow scrolling inside card on small screens */
-  }
-
-  .movie-poster {
-    width: 150px;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .poster-wrapper {
-    text-align: center;
-  }
-
-  .movie-title {
-    font-size: 1.75rem;
-    text-align: center;
-  }
-
-  .meta-row {
-    justify-content: center;
-  }
-}
+/* No custom CSS needed! 
+   Everything is handled by Tailwind utility classes.
+*/
 </style>
