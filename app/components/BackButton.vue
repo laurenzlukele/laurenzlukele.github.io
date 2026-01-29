@@ -17,7 +17,9 @@ const returnToScene = () => {
 </script>
 
 <template>
-  <div class="fixed bottom-8 z-50 flex justify-center w-full select-none">
+  <div
+    class="fixed z-50 flex select-none w-full justify-center landscape:w-auto landscape:right-5 lg:landscape:w-full lg:landscape:justify-center lg:landscape:right-auto landscape:bottom-5 lg:landscape:bottom-8"
+  >
     <button
       class="group relative outline-none focus:outline-none cursor-pointer"
       aria-label="Open Apartment Map"
