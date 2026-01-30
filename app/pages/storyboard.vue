@@ -26,7 +26,7 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg
-        src="/images/storyboard.jpg"
+        src="/images/storyboard.webp"
         alt="Storyboard closeup"
         class="scene-image"
       />

@@ -39,7 +39,7 @@ const tabs = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg
-        src="/images/script.jpg"
+        src="/images/script.webp"
         alt="Script closeup"
         class="scene-image"
       />

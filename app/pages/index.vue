@@ -23,7 +23,7 @@ const movie = {
   <div class="relative w-full h-dvh overflow-hidden">
     <div class="absolute inset-0 z-0">
       <NuxtImg
-        src="/images/entrance.jpg"
+        src="/images/entrance.webp"
         alt="Background"
         class="w-full h-full object-cover opacity-60"
         preload
@@ -62,7 +62,7 @@ const movie = {
               <span
                 v-for="genre in movie.genres"
                 :key="genre"
-                class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-gray-300 border border-white/5"
+                class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-highlighted border border-white/30"
               >
                 {{ genre }}
               </span>
@@ -71,10 +71,10 @@ const movie = {
         </div>
 
         <div
-          class="space-y-1 mb-3 landscape:mb-4 text-xs landscape:text-xs lg:landscape:text-base text-gray-400"
+          class="space-y-1 mb-3 landscape:mb-4 text-xs landscape:text-sm lg:landscape:text-base text-toned"
         >
           <p class="truncate">
-            <strong class="text-white">Dir:</strong> {{ movie.director }}
+            <strong class="text-white">Director:</strong> {{ movie.director }}
           </p>
           <p class="truncate">
             <strong class="text-white">Cast:</strong>

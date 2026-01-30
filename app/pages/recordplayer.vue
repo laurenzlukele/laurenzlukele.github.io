@@ -107,8 +107,8 @@ const hotspots = [
       <NuxtImg
         :src="
           isLidOpen
-            ? '/images/recordplayer-open.jpg'
-            : '/images/recordplayer-closed.jpg'
+            ? '/images/recordplayer-open.webp'
+            : '/images/recordplayer-closed.webp'
         "
         alt="Record player closeup"
         class="scene-image"
@@ -117,7 +117,7 @@ const hotspots = [
 
       <!-- ghost image for nuxt crawler (only necessary for SSG)  -->
       <div style="display: none" aria-hidden="true">
-        <NuxtImg src="/images/recordplayer-open.jpg" />
+        <NuxtImg src="/images/recordplayer-open.webp" />
       </div>
 
       <template v-for="spot in hotspots" :key="spot.id">

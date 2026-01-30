@@ -26,7 +26,7 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg
-        src="/images/bathroom.jpg"
+        src="/images/bathroom.webp"
         alt="Bathroom"
         class="scene-image"
         :class="{ 'bg-flicker': isGhostActive }"
@@ -34,7 +34,7 @@ const hotspots = [
 
       <div v-show="isGhostActive" class="ghost-wrapper">
         <NuxtImg
-          src="/images/ghost-woman.png"
+          src="/images/ghost-woman.webp"
           alt="Ghost"
           class="ghost-image horror-flicker"
         />

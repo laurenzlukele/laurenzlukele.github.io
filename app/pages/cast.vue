@@ -158,14 +158,16 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container relative overflow-hidden">
       <NuxtImg
-        :src="areLightsOn ? '/images/closet-on.jpg' : '/images/closet-off.jpg'"
+        :src="
+          areLightsOn ? '/images/closet-on.webp' : '/images/closet-off.webp'
+        "
         alt="Inside closet"
         class="scene-image"
         preload
       />
 
       <div style="display: none" aria-hidden="true">
-        <NuxtImg src="/images/closet-on.jpg" />
+        <NuxtImg src="/images/closet-on.webp" />
       </div>
 
       <div
@@ -202,7 +204,7 @@ const hotspots = [
     >
       <template #content>
         <div
-          class="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+          class="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth px-5"
         >
           <div
             v-for="(actor, index) in castList"
@@ -219,9 +221,9 @@ const hotspots = [
                 : 'landscape:w-48',
             ]"
           >
-            <div class="text-left space-y-1 mb-2">
+            <div class="text-left landscape:mb-0 lg:landscape:mb-1">
               <h3
-                class="line-clamp-1 text-base landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
+                class="line-clamp-1 text-base mb-2 landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
               >
                 {{ actor.name }}
               </h3>
@@ -342,7 +344,7 @@ const hotspots = [
             </div>
 
             <div
-              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300 mt-2"
+              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300"
             >
               <UButton
                 v-if="actor.socials.instagram"

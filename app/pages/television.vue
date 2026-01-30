@@ -26,7 +26,7 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container">
       <NuxtImg
-        src="/images/television.jpg"
+        src="/images/television.webp"
         alt="Television closeup"
         class="scene-image"
       />

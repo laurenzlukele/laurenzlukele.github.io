@@ -40,7 +40,7 @@ const hotspots = [
 <template>
   <div class="viewport">
     <div class="scene-container">
-      <NuxtImg src="/images/bedroom.jpg" alt="Bedroom" class="scene-image" />
+      <NuxtImg src="/images/bedroom.webp" alt="Bedroom" class="scene-image" />
 
       <button
         v-for="spot in hotspots"

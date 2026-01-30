@@ -105,7 +105,9 @@ const hotspots = [
   <div class="viewport">
     <div class="scene-container relative overflow-hidden">
       <NuxtImg
-        :src="areLightsOn ? '/images/lights-on.jpg' : '/images/lights-off.jpg'"
+        :src="
+          areLightsOn ? '/images/lights-on.webp' : '/images/lights-off.webp'
+        "
         alt="Wall with lights"
         class="scene-image"
         preload
@@ -113,7 +115,7 @@ const hotspots = [
 
       <!-- ghost image for nuxt crawler (only necessary for SSG)  -->
       <div style="display: none" aria-hidden="true">
-        <NuxtImg src="/images/lights-on.jpg" />
+        <NuxtImg src="/images/lights-on.webp" />
       </div>
 
       <div
