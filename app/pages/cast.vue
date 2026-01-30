@@ -35,7 +35,7 @@ const castList = ref<CastMember[]>([
     name: "新川千華 (Shinkawa Chiharu)",
     role: "Fumiko",
     occupation:
-      "俳優、モーションキャプチャ、国内外の企業CM、クラシックバレ (Actress, motioncapture artist, international business, classical Ballet)",
+      "俳優、モーションキャプチャ、国内外の企業CM、クラシックバレ (Actress, motioncapture artist, classical Ballet)",
     image: "/images/cast/shinkawa-chiharu.jpeg",
     socials: {
       web: "https://chiharushinkawa.wixsite.com/minichiiharu",
@@ -197,194 +197,51 @@ const hotspots = [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'max-w-7xl bg-transparent shadow-none ring-0',
-        overlay: 'backdrop-blur-md',
+        content:
+          'max-w-7xl bg-transparent shadow-none ring-0 h-full flex flex-col justify-center',
+        overlay: 'backdrop-blur-sm',
       }"
       title="Cast gallery"
     >
       <template #content>
         <div
-          class="flex gap-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth px-5"
+          class="grid grid-flow-col items-center auto-cols-[40%] md:auto-cols-[25%] landscape:auto-cols-[22%] lg:landscape:auto-cols-[20%] gap-5 landscape:gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide"
         >
           <div
             v-for="(actor, index) in castList"
             :key="index"
-            class="group relative flex-none snap-center flex flex-col transition-all duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
-            :class="[
-              /* Default Portrait Width */
-              'w-60',
-              /* Desktop Landscape Width */
-              'lg:landscape:w-80 lg:landscape:gap-4',
-              /* Mobile Landscape Width Logic (Expandable) */
-              expandedActorIndex === index
-                ? 'landscape:w-lg'
-                : 'landscape:w-48',
-            ]"
+            class="group snap-center flex flex-col min-h-0 h-full"
+            @click="toggleActor(index)"
           >
-            <div class="text-left landscape:mb-0 lg:landscape:mb-1">
-              <h3
-                class="line-clamp-1 text-base mb-2 landscape:text-lg lg:landscape:text-2xl font-bold text-white tracking-tight"
-              >
-                {{ actor.name }}
-              </h3>
-              <p
-                class="text-xs h-8 text-white/50 uppercase tracking-[0.2em] font-medium line-clamp-2 landscape:hidden lg:landscape:block"
-              >
-                {{ actor.occupation }}
-              </p>
-            </div>
+            <h3
+              class="line-clamp-1 text-base mb-2 font-bold text-white tracking-tight shrink-0"
+            >
+              {{ actor.name }}
+            </h3>
 
             <div
-              class="flex flex-col landscape:flex-row lg:landscape:flex-col items-start landscape:gap-0 lg:landscape:gap-4 transition-all duration-500"
+              class="relative aspect-3/4 min-h-0 overflow-hidden cursor-pointer"
             >
+              <img
+                :src="actor.image"
+                :alt="actor.name"
+                class="h-full w-full absolute inset-0 object-cover rounded-md group-hover:scale-105 duration-300"
+              />
               <div
-                class="relative shrink-0 rounded-2xl overflow-hidden bg-gray-900 ring-1 ring-white/10 transition-all duration-500 cursor-pointer"
-                :class="[
-                  'w-full aspect-3/4', // Default
-                  'landscape:w-48 landscape:h-auto', // Mobile Landscape Size
-                  'lg:landscape:w-full', // Desktop Landscape Reset
-                  expandedActorIndex === index
-                    ? 'ring-primary-500/50 rounded-r-none'
-                    : 'group-hover:ring-white/30',
-                ]"
-                @click="toggleActor(index)"
-              >
-                <img
-                  :src="actor.image"
-                  :alt="actor.name"
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  :class="{
-                    'group-hover:scale-105': expandedActorIndex !== index,
-                  }"
-                />
+                class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
+              ></div>
 
-                <div
-                  class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
-                ></div>
-
-                <div class="absolute bottom-4 left-4">
-                  <span class="text-white/80 text-sm font-serif italic"
-                    >as</span
-                  >
-                  <div class="text-white text-xl font-bold tracking-wide">
-                    {{ actor.role }}
-                  </div>
-                </div>
-
-                <div
-                  v-if="expandedActorIndex !== index"
-                  class="absolute top-2 right-2 hidden landscape:block lg:landscape:hidden animate-pulse"
-                >
-                  <UIcon
-                    name="i-heroicons-information-circle"
-                    class="text-white w-6 h-6 drop-shadow-md"
-                  />
+              <div class="absolute bottom-3 left-3">
+                <span class="italic">as</span>
+                <div class="text-highlighted text-xl font-bold tracking-wide">
+                  {{ actor.role }}
                 </div>
               </div>
 
-              <div
-                class="flex h-full flex-col justify-center bg-black/40 backdrop-blur-sm rounded-r-2xl landscape:flex lg:landscape:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]"
-                :class="
-                  expandedActorIndex === index
-                    ? 'w-80 opacity-100 p-4'
-                    : 'w-0 opacity-0'
-                "
-              >
-                <div class="min-w-[18rem] space-y-4">
-                  <p class="text-white/90 text-sm leading-relaxed">
-                    {{ actor.occupation }}
-                  </p>
-
-                  <p class="text-white/60 text-xs leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-
-                  <div class="flex gap-2 pt-2 border-t border-white/10">
-                    <UButton
-                      v-if="actor.socials.instagram"
-                      icon="i-simple-icons-instagram"
-                      variant="ghost"
-                      color="white"
-                      size="md"
-                      :to="actor.socials.instagram"
-                      target="_blank"
-                    />
-                    <UButton
-                      v-if="actor.socials.twitter"
-                      icon="i-simple-icons-twitter"
-                      variant="ghost"
-                      color="white"
-                      size="md"
-                      :to="actor.socials.twitter"
-                      target="_blank"
-                    />
-                    <UButton
-                      v-if="actor.socials.imdb"
-                      icon="i-simple-icons-imdb"
-                      variant="ghost"
-                      color="white"
-                      size="md"
-                      :to="actor.socials.imdb"
-                      target="_blank"
-                    />
-                    <UButton
-                      v-if="actor.socials.web"
-                      icon="i-lucide-globe"
-                      variant="ghost"
-                      color="white"
-                      size="md"
-                      :to="actor.socials.web"
-                      target="_blank"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="landscape:hidden lg:landscape:flex gap-1 transition-opacity duration-300"
-            >
-              <UButton
-                v-if="actor.socials.instagram"
-                icon="i-simple-icons-instagram"
-                variant="ghost"
-                color="white"
-                size="xl"
-                :to="actor.socials.instagram"
-                target="_blank"
-                class="hover:text-primary"
-              />
-              <UButton
-                v-if="actor.socials.twitter"
-                icon="i-simple-icons-twitter"
-                variant="ghost"
-                color="white"
-                size="xl"
-                :to="actor.socials.twitter"
-                target="_blank"
-              />
-              <UButton
-                v-if="actor.socials.imdb"
-                icon="i-simple-icons-imdb"
-                variant="ghost"
-                color="white"
-                size="xl"
-                :to="actor.socials.imdb"
-                target="_blank"
-                class="hover:text-primary"
-              />
-              <UButton
-                v-if="actor.socials.web"
-                icon="i-lucide-globe"
-                variant="ghost"
-                color="white"
-                size="xl"
-                :to="actor.socials.web"
-                target="_blank"
-                class="hover:text-primary"
-              />
+              <UIcon
+                name="i-lucide-info"
+                class="absolute right-3 top-3 size-6 group-hover:size-7 duration-300"
+              ></UIcon>
             </div>
           </div>
         </div>
