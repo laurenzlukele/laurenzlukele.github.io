@@ -198,7 +198,7 @@ const hotspots = [
       v-model:open="isGalleryOpen"
       :ui="{
         content:
-          'max-w-7xl bg-transparent shadow-none ring-0 h-full flex flex-col justify-center',
+          'max-w-7xl bg-transparent shadow-none ring-0 flex flex-col justify-center',
         overlay: 'backdrop-blur-sm',
       }"
       title="Cast gallery"
@@ -210,7 +210,8 @@ const hotspots = [
           <div
             v-for="(actor, index) in castList"
             :key="index"
-            class="group snap-center flex flex-col min-h-0 h-full"
+            class="relative group snap-center flex flex-col min-h-0 h-full"
+            :class="expandedActorIndex === index ? 'z-50' : 'z-10'"
             @click="toggleActor(index)"
           >
             <h3
@@ -227,8 +228,9 @@ const hotspots = [
                 :alt="actor.name"
                 class="h-full w-full absolute inset-0 object-cover rounded-md group-hover:scale-105 duration-300"
               />
+
               <div
-                class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60"
+                class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-60 rounded-md"
               ></div>
 
               <div class="absolute bottom-3 left-3">
@@ -243,6 +245,73 @@ const hotspots = [
                 class="absolute right-3 top-3 size-6 group-hover:size-7 duration-300"
               ></UIcon>
             </div>
+            <Transition name="slide-fade">
+              <div
+                v-if="expandedActorIndex === index"
+                class="absolute left-[105%] top-0 bottom-0 w-60 md:w-70 bg-black/70 backdrop-blur-lg border border-white/20 rounded-r-lg shadow-2xl z-50 p-5 flex flex-col justify-between overflow-y-auto"
+                @click.stop
+              >
+                <div class="space-y-4">
+                  <div>
+                    <h4 class="sr-only">Occupation</h4>
+                    <p class="text-muted text-sm leading-relaxed">
+                      {{ actor.occupation }}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4
+                      class="text-sm uppercase tracking-widest text-text font-bold mb-1"
+                    >
+                      Bio
+                    </h4>
+                    <p class="text-muted text-sm leading-relaxed italic">
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Sed do eiusmod tempor incididunt ut labore."
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex gap-2 pt-3 border-t border-white/10">
+                  <UButton
+                    v-if="actor.socials.instagram"
+                    icon="i-simple-icons-instagram"
+                    variant="ghost"
+                    color="white"
+                    size="xs"
+                    :to="actor.socials.instagram"
+                    target="_blank"
+                  />
+                  <UButton
+                    v-if="actor.socials.twitter"
+                    icon="i-simple-icons-twitter"
+                    variant="ghost"
+                    color="white"
+                    size="xs"
+                    :to="actor.socials.twitter"
+                    target="_blank"
+                  />
+                  <UButton
+                    v-if="actor.socials.imdb"
+                    icon="i-simple-icons-imdb"
+                    variant="ghost"
+                    color="white"
+                    size="xs"
+                    :to="actor.socials.imdb"
+                    target="_blank"
+                  />
+                  <UButton
+                    v-if="actor.socials.web"
+                    icon="i-lucide-globe"
+                    variant="ghost"
+                    color="white"
+                    size="xs"
+                    :to="actor.socials.web"
+                    target="_blank"
+                  />
+                </div>
+              </div>
+            </Transition>
           </div>
         </div>
       </template>
@@ -251,6 +320,20 @@ const hotspots = [
 </template>
 
 <style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s ease-in;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
 @keyframes flicker {
   0% {
     opacity: 0;
