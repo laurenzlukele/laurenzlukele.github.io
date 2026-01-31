@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import * as locales from "@nuxt/ui/locale";
+const { locale } = useI18n();
 const colorMode = useColorMode();
 
 // Force dark mode on app start
@@ -6,7 +8,7 @@ colorMode.preference = "dark";
 </script>
 
 <template>
-  <UApp>
+  <UApp :locale="locales[locale]">
     <div
       id="portrait-overlay"
       class="hidden fixed inset-0 z-9999 bg-black flex-col items-center justify-center text-center p-6 touch-none"

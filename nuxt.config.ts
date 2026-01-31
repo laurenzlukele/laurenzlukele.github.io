@@ -31,7 +31,19 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/main.css"],
   devtools: { enabled: false },
-  modules: ["@nuxt/eslint", "@nuxt/image", "@nuxt/ui"],
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        name: "English",
+      },
+      {
+        code: "ja",
+        name: "Japanese",
+      },
+    ],
+  },
+  modules: ["@nuxt/eslint", "@nuxt/image", "@nuxt/ui", "@nuxtjs/i18n"],
   vite: {
     plugins: [tailwindcss()],
   },
