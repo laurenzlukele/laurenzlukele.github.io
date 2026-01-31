@@ -32,6 +32,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: false },
   i18n: {
+    strategy: "no_prefix",
     locales: [
       {
         code: "en",
