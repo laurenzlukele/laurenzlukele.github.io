@@ -12,7 +12,6 @@ const movie = reactive({
 
 <template>
   <div class="relative w-full h-dvh overflow-hidden">
-    <SettingsMenu />
     <div class="absolute inset-0 z-0">
       <NuxtImg
         src="/images/entrance.webp"

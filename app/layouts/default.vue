@@ -1,5 +1,6 @@
 <template>
   <div class="relative">
+    <SettingsMenu />
     <NavigationMap />
     <slot />
     <div
