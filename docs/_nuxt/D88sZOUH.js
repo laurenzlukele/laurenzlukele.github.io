@@ -1,0 +1,7 @@
+import{e as y,f,r as c,g as w,c as a,a as s,b as p,F as h,k as v,i as n,w as x,x as g,o as l,j as k,m as V,t as C,l as N}from"./DJ0R-HkZ.js";import{_ as $}from"./sU_qqfw5.js";const P={class:"viewport"},B={class:"scene-container"},F=["aria-label","onClick"],I={class:"hotspot-label"},S={class:"aspect-video w-full max-h-[90vh] max-w-[142vh] mx-auto"},T=["src"],D=y({__name:"television",setup(U){const{t:d}=f(),o=c(!1),r=c(""),u=i=>{r.value=i,o.value=!0},m=w(()=>[{id:1,x:35,y:78,label:d("tooltip.remote"),action:()=>u("NFVXPxwkyHc")}]);return(i,t)=>{const _=k,b=$;return l(),a("div",P,[s("div",B,[p(_,{src:"/images/television.webp",alt:"Television closeup",class:"scene-image"}),(l(!0),a(h,null,v(n(m),e=>(l(),a("button",{key:e.id,class:"hotspot",style:V({left:`${e.x}%`,top:`${e.y}%`}),"aria-label":e.label,onClick:e.action},[t[1]||(t[1]=s("span",{class:"hotspot-ring"},null,-1)),t[2]||(t[2]=s("span",{class:"hotspot-dot"},null,-1)),s("span",I,C(e.label),1)],12,F))),128))]),p(b,{open:n(o),"onUpdate:open":t[0]||(t[0]=e=>g(o)?o.value=e:null),ui:{content:"max-w-5xl bg-transparent shadow-none ring-0",overlay:"backdrop-blur-md"},title:"Trailer"},{content:x(()=>[s("div",S,[n(o)?(l(),a("iframe",{key:0,width:"100%",height:"100%",src:`https://www.youtube.com/embed/${n(r)}?autoplay=1&rel=0`,title:"Video Player",frameborder:"0",allow:`
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+            `,allowfullscreen:""},null,8,T)):N("",!0)])]),_:1},8,["open"])])}}});export{D as default};
