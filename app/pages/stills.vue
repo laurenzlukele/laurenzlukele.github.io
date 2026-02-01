@@ -89,7 +89,7 @@ watch(isGalleryOpen, (isOpen) => {
   }
 });
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 67,
@@ -98,7 +98,7 @@ const hotspots = [
     visible: () => !areLightsOn.value,
     action: () => openGallery(),
   },
-];
+]);
 </script>
 
 <template>

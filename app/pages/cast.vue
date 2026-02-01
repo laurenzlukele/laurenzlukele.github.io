@@ -30,7 +30,7 @@ const toggleActor = (index: number) => {
   }
 };
 
-const castList = ref<CastMember[]>([
+const castList = computed<CastMember[]>(() => [
   {
     name: $t("cast.shinkawa-chiharu.name"),
     role: "Fumiko",
@@ -140,7 +140,7 @@ watch(isGalleryOpen, (isOpen) => {
   }
 });
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 29,
@@ -149,7 +149,7 @@ const hotspots = [
     visible: () => !areLightsOn.value,
     action: () => openGallery(),
   },
-];
+]);
 </script>
 
 <template>

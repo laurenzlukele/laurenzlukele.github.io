@@ -4,7 +4,7 @@ const route = useRoute();
 
 const isPressed = ref(false);
 
-const mapZones = [
+const mapZones = computed(() => [
   {
     id: "bedroom",
     name: $t("map.bedroom"),
@@ -41,9 +41,11 @@ const mapZones = [
     w: 75,
     h: 19,
   },
-];
+]);
 
-const currentZone = computed(() => mapZones.find((z) => z.path === route.path));
+const currentZone = computed(() =>
+  mapZones.value.find((z) => z.path === route.path),
+);
 
 const navigateToRoom = (path: string) => {
   if (path === route.path) {

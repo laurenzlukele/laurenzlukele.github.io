@@ -11,7 +11,7 @@ const goToWall = () => {
 };
 
 // Coordinates (x, y) are percentages relative to the IMAGE, not the screen
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 13,
@@ -33,7 +33,7 @@ const hotspots = [
     label: $t("tooltip.table"),
     action: () => goToScript(),
   },
-];
+]);
 </script>
 
 <template>

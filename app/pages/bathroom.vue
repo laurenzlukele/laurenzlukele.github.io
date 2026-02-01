@@ -11,7 +11,7 @@ const triggerEasterEgg = () => {
   }, 2000);
 };
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 34,
@@ -19,7 +19,7 @@ const hotspots = [
     label: $t("tooltip.towel"),
     action: () => triggerEasterEgg(),
   },
-];
+]);
 </script>
 
 <template>

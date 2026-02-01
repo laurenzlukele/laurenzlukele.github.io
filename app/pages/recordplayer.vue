@@ -88,7 +88,7 @@ watch(isAudioPlayerOpen, (isOpen) => {
   }
 });
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 46,
@@ -98,7 +98,7 @@ const hotspots = [
     visible: () => !isLidOpen.value,
     action: () => openAudioPlayer(),
   },
-];
+]);
 </script>
 
 <template>

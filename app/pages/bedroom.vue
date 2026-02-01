@@ -12,7 +12,7 @@ const goToCast = () => {
 };
 
 // Coordinates (x, y) are percentages relative to the IMAGE, not the screen
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 55,
@@ -34,7 +34,7 @@ const hotspots = [
     label: $t("tooltip.closet"),
     action: () => goToCast(),
   },
-];
+]);
 </script>
 
 <template>

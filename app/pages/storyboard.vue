@@ -11,7 +11,7 @@ const openStoryboard = () => {
   isStoryboardOpen.value = true;
 };
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 45,
@@ -19,7 +19,7 @@ const hotspots = [
     label: $t("tooltip.storyboard"),
     action: () => openStoryboard(),
   },
-];
+]);
 </script>
 
 <template>

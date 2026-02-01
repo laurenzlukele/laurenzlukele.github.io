@@ -11,7 +11,7 @@ const openVideoPlayer = (youtubeId: string) => {
   isVideoPlayerOpen.value = true;
 };
 
-const hotspots = [
+const hotspots = computed(() => [
   {
     id: 1,
     x: 35,
@@ -19,7 +19,7 @@ const hotspots = [
     label: $t("tooltip.remote"),
     action: () => openVideoPlayer("NFVXPxwkyHc"),
   },
-];
+]);
 </script>
 
 <template>
