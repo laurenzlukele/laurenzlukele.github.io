@@ -94,7 +94,7 @@ const hotspots = [
     id: 1,
     x: 67,
     y: 63,
-    label: "Turn on lights",
+    label: $t("tooltip.lights"),
     visible: () => !areLightsOn.value,
     action: () => openGallery(),
   },

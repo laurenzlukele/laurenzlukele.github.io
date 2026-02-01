@@ -6,7 +6,7 @@ definePageMeta({
 type CastMember = {
   name: string;
   role: string;
-  occupation: string;
+  about: string;
   image: string;
   socials: {
     instagram?: string;
@@ -32,28 +32,27 @@ const toggleActor = (index: number) => {
 
 const castList = ref<CastMember[]>([
   {
-    name: "新川千華 (Shinkawa Chiharu)",
+    name: $t("cast.shinkawa-chiharu.name"),
     role: "Fumiko",
-    occupation:
-      "俳優、モーションキャプチャ、国内外の企業CM、クラシックバレ (Actress, motioncapture artist, classical Ballet)",
+    about: $t("cast.shinkawa-chiharu.about"),
     image: "/images/cast/shinkawa-chiharu.jpeg",
     socials: {
       web: "https://chiharushinkawa.wixsite.com/minichiiharu",
     },
   },
   {
-    name: "真田 煌生 (Sanada  Kōki)",
+    name: $t("cast.sanada-koki.name"),
     role: "Hansuke",
-    occupation: "書道が得意なアーティストです (Künstler/Kaligraphist)",
+    about: $t("cast.sanada-koki.about"),
     image: "/images/cast/sanada-koki.jpeg",
     socials: {
       instagram: "https://www.instagram.com/ko__oo__ki/",
     },
   },
   {
-    name: "愛恵 (MANAE)",
+    name: $t("cast.manae.name"),
     role: "Helene",
-    occupation: "舞台と映画の二刀流俳優 (theater and film actress)",
+    about: $t("cast.manae.about"),
     image: "/images/cast/manae.jpeg",
     socials: {
       instagram: "https://www.instagram.com/ma_na_e1/",
@@ -61,9 +60,9 @@ const castList = ref<CastMember[]>([
     },
   },
   {
-    name: "根本もえり (Nemoto Moeri)",
+    name: $t("cast.nemoto-moeri.name"),
     role: "Hako",
-    occupation: "俳優,マルチタレント (Actress, Multitalent)",
+    about: $t("cast.nemoto-moeri.about"),
     image: "/images/cast/nemoto-moeri.jpeg",
     socials: {
       instagram: "https://www.instagram.com/_moeri_n__/",
@@ -71,16 +70,16 @@ const castList = ref<CastMember[]>([
     },
   },
   {
-    name: "中野 響 (Nakano Hibiki)",
+    name: $t("cast.nakano-hibiki.name"),
     role: "Park woman",
-    occupation: "役者,アーティスト (Actress, Artist)",
+    about: $t("cast.nakano-hibiki.about"),
     image: "/images/cast/nakano-hibiki.jpeg",
     socials: { instagram: "https://www.instagram.com/hibiki_n185/", imdb: "#" },
   },
   {
-    name: "お名前 (Yamane Aya)",
+    name: $t("cast.yamane-aya.name"),
     role: "Fumiko 2",
-    occupation: "映像、舞台を中心に活動中 (Working in film and theater)",
+    about: $t("cast.yamane-aya.about"),
     image: "/images/cast/yamane-aya.jpeg",
     socials: {
       instagram: "https://www.instagram.com/aya_yamane/",
@@ -88,31 +87,30 @@ const castList = ref<CastMember[]>([
     },
   },
   {
-    name: "遠藤幸介 (Endō Kōsuke)",
+    name: $t("cast.endo-kosuke.name"),
     role: "Ryo",
-    occupation: "舞台 (Theater actor)",
+    about: $t("cast.endo-kosuke.about"),
     image: "/images/cast/endo-kosuke.jpeg",
     socials: { web: "https://a-and-h-promotion.com/artists/Kousuke_Endo/" },
   },
   {
-    name: "宮園兼生 (Miyazono Kensei)",
+    name: $t("cast.miyazono-kensei.name"),
     role: "Totsuya",
-    occupation: "俳優、(Actor)",
+    about: $t("cast.miyazono-kensei.about"),
     image: "/images/cast/miyazono-kensei.jpeg",
     socials: { web: "http://gushout.info/archives/author/kensei_miyazono" },
   },
   {
-    name: "小嶋そら (Kojima Sora)",
+    name: $t("cast.kojima-sora.name"),
     role: "Walking woman",
-    occupation:
-      "ジャズダンス、役者活動、映画作り。(Jazz dance, actress, film maker)",
+    about: $t("cast.kojima-sora.about"),
     image: "/images/cast/kojima-sora.jpeg",
     socials: { instagram: "https://www.instagram.com/kotori_rr/" },
   },
   {
-    name: "藤原 明日人 (Fujihara Asuto)",
+    name: $t("cast.fujihara-asuto.name"),
     role: "Koji",
-    occupation: "Comedian, screenwriter, content creator, television persona",
+    about: $t("cast.fujihara-asuto.about"),
     image: "/images/cast/fujihara-asuto.jpeg",
     socials: {
       twitter: "https://x.com/amajioasuri1310?s=21&t=Ph_95DKcR_jGSQ0B4zoJ9w",
@@ -147,7 +145,7 @@ const hotspots = [
     id: 1,
     x: 29,
     y: 41,
-    label: "Turn on lights",
+    label: $t("tooltip.lights"),
     visible: () => !areLightsOn.value,
     action: () => openGallery(),
   },
@@ -251,25 +249,15 @@ const hotspots = [
                 class="absolute left-[105%] top-0 bottom-0 w-60 md:w-70 bg-black/70 backdrop-blur-lg border border-white/20 rounded-r-lg shadow-2xl z-50 p-5 flex flex-col justify-between overflow-y-auto"
                 @click.stop
               >
-                <div class="space-y-4">
-                  <div>
-                    <h4 class="sr-only">Occupation</h4>
-                    <p class="text-muted text-sm leading-relaxed">
-                      {{ actor.occupation }}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h4
-                      class="text-sm uppercase tracking-widest text-text font-bold mb-1"
-                    >
-                      Bio
-                    </h4>
-                    <p class="text-muted text-sm leading-relaxed italic">
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Sed do eiusmod tempor incididunt ut labore."
-                    </p>
-                  </div>
+                <div>
+                  <h4
+                    class="text-sm uppercase tracking-widest text-text font-bold mb-1"
+                  >
+                    Bio
+                  </h4>
+                  <p class="text-muted text-sm leading-relaxed italic">
+                    {{ actor.about }}
+                  </p>
                 </div>
 
                 <div class="flex gap-2 pt-3 border-t border-white/10">

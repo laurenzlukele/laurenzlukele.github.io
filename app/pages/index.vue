@@ -1,22 +1,13 @@
 <script setup lang="ts">
-const movie = {
-  title: "Tethered",
+const { t } = useI18n();
+
+const movie = reactive({
   poster: "/images/poster.jpeg",
   year: "2026",
   length: "1h 14m",
   director: "Laurenz Lukele",
-  actors: [
-    "新川千華 (Shinkawa Chiharu)",
-    "真田 煌生 (Sanada  Kōki)",
-    "愛恵 (MANAE)",
-  ],
-  genres: ["Ensemble", "Mystery", "Drama"],
-  description: [
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
-    "Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-  ],
   tmdbUrl: "https://www.themoviedb.org/person/5112297-laurenz-lukele",
-};
+});
 </script>
 
 <template>
@@ -40,7 +31,7 @@ const movie = {
       >
         <NuxtImg
           :src="movie.poster"
-          :alt="movie.title"
+          :alt="$t('movie.tethered')"
           class="w-full object-contain"
         />
       </div>
@@ -50,7 +41,7 @@ const movie = {
       >
         <div class="mb-2 landscape:mb-3">
           <h1 class="landscape:text-4xl lg:landscape:text-5xl font-black mb-3">
-            {{ movie.title }}
+            {{ $t("movie.tethered") }}
           </h1>
           <div
             class="flex items-center text-gray-400 landscape:text-sm lg:landscape:text-base font-medium space-x-2"
@@ -61,7 +52,11 @@ const movie = {
             <span class="text-gray-600 hidden landscape:inline">•</span>
             <div class="flex gap-1.5 ml-2">
               <span
-                v-for="genre in movie.genres"
+                v-for="genre in [
+                  t('movie.genre.ensemble'),
+                  t('movie.genre.mystery'),
+                  t('movie.genre.drama'),
+                ]"
                 :key="genre"
                 class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-highlighted border border-white/30"
               >
@@ -75,11 +70,18 @@ const movie = {
           class="space-y-1 mb-3 landscape:mb-4 text-xs landscape:text-sm lg:landscape:text-base text-toned"
         >
           <p class="truncate">
-            <strong class="text-white">Director:</strong> {{ movie.director }}
+            <strong class="text-white">{{ $t("movie.director") }}:</strong>
+            {{ movie.director }}
           </p>
           <p class="truncate">
-            <strong class="text-white">Cast:</strong>
-            {{ movie.actors.join(", ") }}
+            <strong class="text-white">{{ $t("movie.cast") }}:</strong>
+            {{
+              [
+                $t("cast.shinkawa-chiharu.name"),
+                $t("cast.sanada-koki.name"),
+                $t("cast.manae.name"),
+              ].join(", ")
+            }}
           </p>
         </div>
 
@@ -89,7 +91,7 @@ const movie = {
           <p
             class="line-clamp-3 landscape:line-clamp-4 lg:line-clamp-none max-w-lg"
           >
-            {{ movie.description.join(" ") }}
+            {{ $t("movie.synopsis") }}
           </p>
         </div>
 
@@ -101,7 +103,7 @@ const movie = {
             variant="solid"
             size="md"
           >
-            View on TMDB
+            {{ $t("movie.view-on") }} TMDB
           </UButton>
         </div>
       </div>

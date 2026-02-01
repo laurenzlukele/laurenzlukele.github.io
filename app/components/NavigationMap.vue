@@ -7,7 +7,7 @@ const isPressed = ref(false);
 const mapZones = [
   {
     id: "bedroom",
-    name: "Bedroom",
+    name: $t("map.bedroom"),
     path: "/bedroom",
     x: 11,
     y: 4,
@@ -16,7 +16,7 @@ const mapZones = [
   },
   {
     id: "kitchen",
-    name: "Kitchen",
+    name: $t("map.kitchen"),
     path: "/kitchen",
     x: 48,
     y: 4,
@@ -25,14 +25,22 @@ const mapZones = [
   },
   {
     id: "bathroom",
-    name: "Bathroom",
+    name: $t("map.bathroom"),
     path: "/bathroom",
     x: 85,
     y: 4,
     w: 12,
     h: 91,
   },
-  { id: "entrance", name: "Entrance", path: "/", x: 9, y: 80, w: 75, h: 19 },
+  {
+    id: "entrance",
+    name: $t("map.entrance"),
+    path: "/",
+    x: 9,
+    y: 80,
+    w: 75,
+    h: 19,
+  },
 ];
 
 const currentZone = computed(() => mapZones.find((z) => z.path === route.path));

@@ -93,7 +93,7 @@ const hotspots = [
     id: 1,
     x: 46,
     y: 60,
-    label: "Open record player",
+    label: $t("tooltip.play"),
     // Hide hotspot if lid is already open to prevent double clicking during transition
     visible: () => !isLidOpen.value,
     action: () => openAudioPlayer(),
@@ -168,7 +168,7 @@ const hotspots = [
                 Tethered
               </h2>
               <p class="text-white/60 text-sm mt-1 uppercase tracking-widest">
-                Original Soundtrack
+                {{ $t("player.original-soundtrack") }}
               </p>
             </div>
           </div>
@@ -177,7 +177,9 @@ const hotspots = [
             class="w-full landscape:w-7/12 md:w-7/12 bg-gray-950 flex flex-col min-h-0"
           >
             <div class="hidden lg:block p-6 border-b border-white/10">
-              <h3 class="text-lg font-medium text-white/90">Tracklist</h3>
+              <h3 class="text-lg font-medium text-white/90">
+                {{ $t("player.tracklist") }}
+              </h3>
             </div>
 
             <div class="flex-1 overflow-y-auto p-2 space-y-1">

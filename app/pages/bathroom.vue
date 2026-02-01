@@ -16,7 +16,7 @@ const hotspots = [
     id: 1,
     x: 34,
     y: 32,
-    label: "Examine towel",
+    label: $t("tooltip.towel"),
     action: () => triggerEasterEgg(),
   },
 ];

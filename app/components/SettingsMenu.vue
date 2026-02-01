@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { en, ja } from "@nuxt/ui/locale";
 
-const locale = ref("en");
+const { locale, setLocale } = useI18n();
 </script>
 
 <template>
   <div class="absolute top-5 right-5 z-90">
-    <USlideover title="Settings">
+    <USlideover :title="$t('settings.title')">
       <UButton
         icon="i-lucide-settings"
         color="neutral"
@@ -16,12 +16,13 @@ const locale = ref("en");
       </UButton>
 
       <template #body>
-        <p class="font-bold inline mr-3">Language:</p>
+        <p class="font-bold inline mr-3">{{ $t("settings.language") }}:</p>
         <ULocaleSelect
-          v-model="locale"
-          name="language"
           :locales="[en, ja]"
+          :model-value="locale"
+          name="language"
           size="xl"
+          @update:model-value="setLocale($event)"
         />
         <USeparator class="my-5" />
       </template>

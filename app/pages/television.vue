@@ -16,7 +16,7 @@ const hotspots = [
     id: 1,
     x: 35,
     y: 78,
-    label: "Click remote",
+    label: $t("tooltip.remote"),
     action: () => openVideoPlayer("NFVXPxwkyHc"),
   },
 ];

@@ -16,19 +16,19 @@ const hotspots = [
     id: 1,
     x: 45,
     y: 45,
-    label: "Read the script",
+    label: $t("tooltip.script"),
     action: () => openPdf(),
   },
 ];
 
 const tabs = [
   {
-    label: "English",
+    label: $t("language.english"),
     icon: "circle-flags:en",
     slot: "english",
   },
   {
-    label: "Japanese",
+    label: $t("language.japanese"),
     icon: "circle-flags:jp",
     slot: "japanese",
   },

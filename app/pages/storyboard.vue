@@ -16,7 +16,7 @@ const hotspots = [
     id: 1,
     x: 45,
     y: 45,
-    label: "Read the storyboard",
+    label: $t("tooltip.storyboard"),
     action: () => openStoryboard(),
   },
 ];
