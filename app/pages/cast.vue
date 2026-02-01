@@ -232,7 +232,7 @@ const hotspots = computed(() => [
               ></div>
 
               <div class="absolute bottom-3 left-3">
-                <span class="italic">as</span>
+                <span class="italic">{{ $t("cast.as") }}</span>
                 <div class="text-highlighted text-xl font-bold tracking-wide">
                   {{ actor.role }}
                 </div>
@@ -253,7 +253,7 @@ const hotspots = computed(() => [
                   <h4
                     class="text-sm uppercase tracking-widest text-text font-bold mb-1"
                   >
-                    Bio
+                    {{ $t("cast.bio") }}
                   </h4>
                   <p class="text-muted text-sm leading-relaxed italic">
                     {{ actor.about }}
