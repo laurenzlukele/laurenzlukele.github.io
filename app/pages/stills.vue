@@ -99,6 +99,18 @@ const hotspots = computed(() => [
     action: () => openGallery(),
   },
 ]);
+const thumbnailContainer = useTemplateRef("thumbnailContainer");
+
+watch(activeIndex, (newIndex) => {
+  const container = thumbnailContainer.value;
+  if (container && container.children[newIndex]) {
+    container.children[newIndex].scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center", // Keeps the active thumb centered in the scroll area
+    });
+  }
+});
 </script>
 
 <template>
@@ -165,7 +177,10 @@ const hotspots = computed(() => [
             <img :src="item" width="3840" height="2160" />
           </UCarousel>
 
-          <div class="flex gap-2 overflow-x-auto scrollbar-hide z-20 shrink-0">
+          <div
+            ref="thumbnailContainer"
+            class="flex gap-2 overflow-x-auto scrollbar-hide z-20 shrink-0"
+          >
             <div
               v-for="(item, index) in thumbnails"
               :key="index"
