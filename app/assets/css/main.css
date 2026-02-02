@@ -148,3 +148,12 @@ html:has(.iris-leave-active) * {
     transform: rotate(360deg);
   }
 }
+
+/* Scrollbar Hide Utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

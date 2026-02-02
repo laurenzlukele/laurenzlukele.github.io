@@ -3,7 +3,7 @@ definePageMeta({
   layout: "closeup",
 });
 
-const isGalleryOpen = ref(false);
+const isGalleryOpen = ref(true);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);
 const currentStillIndex = ref(0);
@@ -145,13 +145,13 @@ const hotspots = computed(() => [
     <UModal
       v-model:open="isGalleryOpen"
       :ui="{
-        content: 'lg:max-w-5xl bg-transparent shadow-none ring-0',
+        content: 'max-w-5xl bg-transparent shadow-none ring-0 rounded-none',
         overlay: 'backdrop-blur-sm',
       }"
       title="Stills"
     >
       <template #content>
-        <div class="flex-1 w-full">
+        <div class="flex flex-col overflow-hidden gap-4">
           <UCarousel
             ref="carousel"
             v-slot="{ item }"
@@ -159,21 +159,29 @@ const hotspots = computed(() => [
             :items="stills"
             :prev="{ onClick: onClickPrev }"
             :next="{ onClick: onClickNext }"
-            class="w-full max-w-4xl mx-auto"
+            class="min-h-0 max-w-4xl mx-auto"
             @select="onSelect"
           >
-            <img :src="item" width="3840" height="2160" class="rounded-lg" />
+            <img :src="item" width="3840" height="2160" />
           </UCarousel>
 
-          <div class="flex gap-1 justify-between pt-4 max-w-4xl mx-auto">
+          <div class="flex gap-2 overflow-x-auto scrollbar-hide z-20 shrink-0">
             <div
               v-for="(item, index) in thumbnails"
               :key="index"
-              class="opacity-25 hover:opacity-100 transition-opacity"
-              :class="{ 'opacity-100': activeIndex === index }"
+              class="opacity-40 hover:opacity-100 transition-opacity cursor-pointer shrink-0 snap-x"
+              :class="{
+                'opacity-100 transition-transform': activeIndex === index,
+              }"
               @click="select(index)"
             >
-              <img :src="item" width="88" height="50" class="rounded-lg" />
+              <img
+                :src="item"
+                width="88"
+                height="50"
+                class="h-10 lg:h-12 object-cover border border-white/10"
+                :class="{ 'border-white/60': activeIndex === index }"
+              />
             </div>
           </div>
         </div>

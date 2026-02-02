@@ -2,6 +2,10 @@
 import { en, ja } from "@nuxt/ui/locale";
 
 const { locale, setLocale } = useI18n();
+
+const handleLocaleChange = (value: string) => {
+  setLocale(value as "en" | "ja");
+};
 </script>
 
 <template>
@@ -22,7 +26,7 @@ const { locale, setLocale } = useI18n();
           :model-value="locale"
           name="language"
           size="xl"
-          @update:model-value="setLocale($event)"
+          @update:model-value="handleLocaleChange($event)"
         />
         <USeparator class="my-5" />
       </template>

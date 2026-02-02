@@ -2,7 +2,6 @@
 const goToScript = () => {
   navigateTo("/script");
 };
-
 const goToStoryboard = () => {
   navigateTo("/storyboard");
 };

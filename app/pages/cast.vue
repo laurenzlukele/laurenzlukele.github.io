@@ -346,13 +346,4 @@ const hotspots = computed(() => [
 .animate-flicker {
   animation: flicker 0.6s linear forwards;
 }
-
-/* Scrollbar Hide Utility */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
 </style>
