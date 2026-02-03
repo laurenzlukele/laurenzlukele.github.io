@@ -103,13 +103,15 @@ const thumbnailContainer = useTemplateRef("thumbnailContainer");
 
 watch(activeIndex, (newIndex) => {
   const container = thumbnailContainer.value;
-  if (container && container.children[newIndex]) {
-    container.children[newIndex].scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center", // Keeps the active thumb centered in the scroll area
-    });
-  }
+  nextTick(() => {
+    if (container && container.children[newIndex]) {
+      container.children[newIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center", // Keeps the active thumb centered in the scroll area
+      });
+    }
+  });
 });
 </script>
 
@@ -163,7 +165,9 @@ watch(activeIndex, (newIndex) => {
       title="Stills"
     >
       <template #content>
-        <div class="flex flex-col overflow-hidden gap-4">
+        <div
+          class="flex flex-col landscape:h-dvh lg:landscape:h-auto overflow-hidden gap-2 landscape:gap-2 lg:landscape:gap-4"
+        >
           <UCarousel
             ref="carousel"
             v-slot="{ item }"
@@ -171,31 +175,36 @@ watch(activeIndex, (newIndex) => {
             :items="stills"
             :prev="{ onClick: onClickPrev }"
             :next="{ onClick: onClickNext }"
-            class="min-h-0 max-w-4xl mx-auto"
+            :ui="{
+              viewport: 'h-full',
+              container: 'h-full',
+              item: 'basis-full h-full flex items-center justify-center',
+              prev: 'hidden lg:flex',
+              next: 'hidden lg:flex',
+            }"
+            class="flex-1 min-h-0 max-w-4xl mx-auto"
             @select="onSelect"
           >
-            <img :src="item" width="3840" height="2160" />
+            <img :src="item" class="max-h-full max-w-full object-contain" />
           </UCarousel>
 
           <div
             ref="thumbnailContainer"
-            class="flex gap-2 overflow-x-auto scrollbar-hide z-20 shrink-0"
+            class="flex gap-2 overflow-x-auto scrollbar-hide z-20 shrink-0 mx-auto"
           >
             <div
               v-for="(item, index) in thumbnails"
               :key="index"
-              class="opacity-40 hover:opacity-100 transition-opacity cursor-pointer shrink-0 snap-x"
-              :class="{
-                'opacity-100 transition-transform': activeIndex === index,
-              }"
+              class="h-6 lg:h-12 shrink-0 snap-center"
               @click="select(index)"
             >
               <img
                 :src="item"
-                width="88"
-                height="50"
-                class="h-10 lg:h-12 object-cover border border-white/10"
-                :class="{ 'border-white/60': activeIndex === index }"
+                class="h-full w-auto object-cover border border-white/10"
+                :class="{
+                  'border-white/60 opacity-100': activeIndex === index,
+                  'opacity-40': activeIndex !== index,
+                }"
               />
             </div>
           </div>
