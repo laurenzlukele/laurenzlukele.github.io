@@ -4,6 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   app: {
     head: {
+      title: "Tethered",
+      charset: "utf-8",
+      viewport:
+        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
       meta: [
         // Hides the Safari UI (address bar and bottom nav)
         { name: "apple-mobile-web-app-capable", content: "yes" },
@@ -12,14 +16,39 @@ export default defineNuxtConfig({
           name: "apple-mobile-web-app-status-bar-style",
           content: "black-translucent",
         },
-        // Prevents zooming which can break the layout
+      ],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
-          name: "viewport",
-          content:
-            "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+          rel: "icon",
+          type: "image/png",
+          sizes: "32x32",
+          href: "/favicon-32x32.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "16x16",
+          href: "/favicon-16x16.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "192x192",
+          href: "/android-chrome-192x192.png",
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          sizes: "512x512",
+          href: "/android-chrome-512x512.png",
         },
       ],
-      title: "Tethered",
     },
     pageTransition: { name: "iris", mode: "out-in" },
   },
