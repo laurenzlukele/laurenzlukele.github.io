@@ -61,7 +61,13 @@ const hotspots = computed(() => [
       <template #content>
         <div class="h-[90vh] overflow-y-auto">
           <ClientOnly>
-            <VuePdfEmbed source="/documents/storyboard.pdf" class="w-full" />
+            <VuePdfEmbed
+              source="/documents/storyboard.pdf"
+              class="w-full"
+              :scale="0.5"
+              :text-layer="false"
+              :annotation-layer="false"
+            />
           </ClientOnly>
         </div>
       </template>

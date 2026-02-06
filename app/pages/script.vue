@@ -94,6 +94,7 @@ const tabs = [
                 <VuePdfEmbed
                   source="/documents/script-jp.pdf"
                   class="w-full"
+                  :scale="0.5"
                   :text-layer="false"
                   :annotation-layer="false"
                 />
