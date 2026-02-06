@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const config = useAppConfig();
+const roomName = "Bathroom";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const isGhostActive = ref(false);
 
 const triggerEasterEgg = () => {

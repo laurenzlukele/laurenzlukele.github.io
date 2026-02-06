@@ -5,6 +5,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Official Script";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const isScriptOpen = ref(false);
 
 const openPdf = () => {

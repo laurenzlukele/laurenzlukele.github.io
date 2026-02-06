@@ -3,6 +3,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Official Soundtrack";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 type Track = {
   title: string;
   file: string;

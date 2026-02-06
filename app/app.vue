@@ -2,6 +2,19 @@
 import * as locales from "@nuxt/ui/locale";
 const { locale } = useI18n();
 const colorMode = useColorMode();
+const config = useAppConfig();
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} | ${config.siteName}` : config.siteName;
+  },
+});
+
+useSeoMeta({
+  description: config.description,
+  ogSiteName: config.siteName,
+  ogDescription: config.description,
+});
 
 // Force dark mode on app start
 colorMode.preference = "dark";

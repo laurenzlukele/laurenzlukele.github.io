@@ -3,6 +3,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Movie Stills";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const isGalleryOpen = ref(false);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);

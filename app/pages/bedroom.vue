@@ -1,4 +1,12 @@
 <script setup lang="ts">
+const config = useAppConfig();
+const roomName = "Bedroom";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const goToTelevision = () => {
   navigateTo("/television");
 };

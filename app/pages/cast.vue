@@ -3,6 +3,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Cast";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 type CastMember = {
   name: string;
   role: string;

@@ -3,6 +3,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Official Trailer";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const isVideoPlayerOpen = ref(false);
 const currentYoutubeId = ref("");
 

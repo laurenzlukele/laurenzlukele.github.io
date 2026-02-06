@@ -5,6 +5,14 @@ definePageMeta({
   layout: "closeup",
 });
 
+const config = useAppConfig();
+const roomName = "Storyboard";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const isStoryboardOpen = ref(false);
 
 const openStoryboard = () => {

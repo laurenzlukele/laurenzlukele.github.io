@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const { t } = useI18n();
+const config = useAppConfig();
+const roomName = "Entrance";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
 
 const movie = reactive({
   poster: "/images/poster.jpeg",

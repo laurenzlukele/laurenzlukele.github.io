@@ -1,4 +1,12 @@
 <script setup lang="ts">
+const config = useAppConfig();
+const roomName = "Kitchen";
+
+useSeoMeta({
+  title: roomName,
+  ogTitle: `${roomName} | ${config.siteName}`,
+});
+
 const goToScript = () => {
   navigateTo("/script");
 };
