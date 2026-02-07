@@ -283,6 +283,7 @@ const hotspots = computed(() => [
                   >
                     {{ $t("cast.bio") }}
                   </h4>
+                  <p>{{ actor.name }}</p>
                   <p class="text-muted text-sm leading-relaxed italic">
                     {{ actor.about }}
                   </p>
