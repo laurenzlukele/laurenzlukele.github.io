@@ -83,9 +83,11 @@ const movie = reactive({
             <strong class="text-white">{{ $t("movie.cast") }}:</strong>
             {{
               [
-                $t("cast.shinkawa-chiharu.name"),
-                $t("cast.sanada-koki.name"),
-                $t("cast.manae.name"),
+                $t("cast.shinkawa-chiharu.name-without"),
+                $t("cast.sanada-koki.name-without"),
+                $t("cast.manae.name-without"),
+                $t("cast.nemoto-moeri.name-without"),
+                $t("cast.miyazono-kensei.name-without"),
               ].join(", ")
             }}
           </p>

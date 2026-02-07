@@ -8,14 +8,17 @@
     },
     "nemoto-moeri": {
       "name": "Nemoto Moeri",
+      "name-without": "Nemoto Moeri",
       "about": "I have many talents, acting and dancing among them."
     },
     "miyazono-kensei": {
       "name": "Miyazono Kensei",
+      "name-without": "Miyazono Kensei",
       "about": "I am a college student broadening his range with English as a weapon."
     },
     "shinkawa-chiharu": {
       "name": "Shinkawa Chiharu",
+      "name-without": "Shinkawa Chiharu",
       "about": "I am an actress from Nerima, Tokyo. Some of my credits include Alice in Borderland (season 3), Avataro Sentai Donbrothers, or Bullet Train Bistro 2. I also make commercials, and have recently performed motion capture for Princess Zelda in the video game Hyrule Warriors: Age of Imprisonment. I am also a proficient English speaker and classical ballet dancer."
     },
     "endo-kosuke": {
@@ -32,10 +35,12 @@
     },
     "manae": {
       "name": "MANAE",
+      "name-without": "MANAE",
       "about": "I specialize in both theatre and film as an actress."
     },
     "sanada-koki": {
       "name": "Sanada Kōki",
+      "name-without": "Sanada Kōki",
       "about": "I am an artist and calligrapher."
     },
     "fujihara-asuto": {
@@ -81,6 +86,7 @@
     "remote": "Use remote",
     "script": "Read script",
     "shelf": "Examine shelf",
+    "sky": "Take in the view",
     "storyboard": "Read storyboard",
     "table": "Examine table",
     "television": "Examine television",
