@@ -61,13 +61,23 @@ const hotspots = computed(() => [
       <template #content>
         <div class="h-[90vh] overflow-y-auto">
           <ClientOnly>
-            <VuePdfEmbed
+            <!-- <VuePdfEmbed
               source="/documents/storyboard.pdf"
               class="w-full"
-              :scale="0.5"
+              :scale="0.7"
               :text-layer="false"
               :annotation-layer="false"
-            />
+            /> -->
+            <object
+              data="/documents/storyboard.pdf#toolbar=0&navpanes=0"
+              type="application/pdf"
+              class="w-full h-full"
+            >
+              <p>
+                Your browser does not support PDFs.
+                <a href="/documents/storyboard.pdf">Download instead.</a>
+              </p>
+            </object>
           </ClientOnly>
         </div>
       </template>
