@@ -76,6 +76,7 @@ const hotspots = computed(() => [
 }
 
 .ghost-image {
+  transform: translateY(4px) translateX(7px);
   width: 100%;
   opacity: 0;
   mix-blend-mode: hard-light;
@@ -86,11 +87,9 @@ const hotspots = computed(() => [
 @keyframes flicker {
   0% {
     opacity: 0;
-    transform: scale(1);
   }
   2% {
     opacity: 1;
-    transform: scale(1);
   }
   4% {
     opacity: 0;
@@ -100,7 +99,6 @@ const hotspots = computed(() => [
   }
   10% {
     opacity: 0.8;
-    transform: scale(0.98);
   }
   12% {
     opacity: 0;
