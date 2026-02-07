@@ -24,6 +24,24 @@ type CastMember = {
   };
 };
 
+const scrollContainer = ref<HTMLElement | null>(null);
+
+const handleWheel = (event: WheelEvent) => {
+  const isMac =
+    // Modern API (Chrome/Edge)
+    (navigator as any).userAgentData?.platform === "macOS" ||
+    // Legacy/Current fallback (Safari/Firefox)
+    navigator.userAgent.toUpperCase().indexOf("MAC") !== -1;
+
+  if (!isMac && event.deltaY !== 0 && event.deltaX === 0) {
+    event.preventDefault();
+    scrollContainer.value?.scrollBy({
+      left: event.deltaY,
+      behavior: "auto",
+    });
+  }
+};
+
 const isGalleryOpen = ref(false);
 const areLightsOn = ref(false);
 const isFlickering = ref(false);
@@ -211,7 +229,9 @@ const hotspots = computed(() => [
     >
       <template #content>
         <div
-          class="grid grid-flow-col items-center auto-cols-[40%] md:auto-cols-[25%] landscape:auto-cols-[22%] lg:landscape:auto-cols-[20%] gap-5 landscape:gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide"
+          ref="scrollContainer"
+          class="grid grid-flow-col items-center auto-cols-[40%] md:auto-cols-[25%] landscape:auto-cols-[22%] lg:landscape:auto-cols-[20%] gap-5 landscape:gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory landscape:lg:snap-none max-lg:landscape:[&::-webkit-scrollbar]:hidden max-lg:landscape:[scrollbar-width:none]"
+          @wheel="handleWheel"
         >
           <div
             v-for="(actor, index) in castList"
