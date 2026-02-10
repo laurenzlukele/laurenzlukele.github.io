@@ -79,7 +79,9 @@
     "language": "Language"
   },
   "tooltip": {
+    "balcony": "Examine balcony",
     "closet": "Open closet",
+    "door": "Open door",
     "lights": "Turn on lights",
     "play": "Open record player",
     "record-player": "Examine record player",
