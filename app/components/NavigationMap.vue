@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const isMapOpen = ref(true);
+const isMapOpen = ref(false);
 const route = useRoute();
 
 const isPressed = ref(false);
