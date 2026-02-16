@@ -49,6 +49,7 @@
     }
   },
   "map": {
+    "balcony": "バルコニー",
     "bathroom": "浴室",
     "bedroom": "寝室",
     "entrance": "玄関",
@@ -71,7 +72,7 @@
     },
     "director": "監督",
     "cast": "メインキャスト",
-    "synopsis": "ここに映画のあらすじが入ります。テキストのサンプルです。",
+    "synopsis": "Tethered is an ensemble film about a ghost trying to uncover how she died while coexisting with the new tenant of her former apartment. As she learns about the world through his space, he remains entangled in a love story involving a woman with a very unusual name.",
     "view-on": "視聴する"
   },
   "settings": {
@@ -79,10 +80,10 @@
     "language": "言語"
   },
   "tooltip": {
-    "balcony": "バルコニーを調べる",
+    "city": "街の鼓動を感じる",
     "closet": "クローゼットを開ける",
-    "door": "バルコニーの扉を開ける",
     "lights": "電気を点ける",
+    "open-window": "窓を開ける",
     "play": "レコードプレーヤーを開く",
     "record-player": "レコードプレーヤーを調べる",
     "remote": "リモコンを使う",
@@ -93,6 +94,7 @@
     "table": "テーブルを調べる",
     "television": "テレビを調べる",
     "towel": "タオルを調べる",
-    "wall": "壁を調べる"
+    "wall": "壁を調べる",
+    "window": "窓を調べる"
   }
 }

@@ -19,8 +19,8 @@ const goToCast = () => {
   navigateTo("/cast");
 };
 
-const goToBalcony = () => {
-  navigateTo("/balcony");
+const goToWindow = () => {
+  navigateTo("/window");
 };
 
 // Coordinates (x, y) are percentages relative to the IMAGE, not the screen
@@ -50,8 +50,8 @@ const hotspots = computed(() => [
     id: 4,
     x: 68,
     y: 35,
-    label: $t("tooltip.closet"),
-    action: () => goToBalcony(),
+    label: $t("tooltip.window"),
+    action: () => goToWindow(),
   },
 ]);
 </script>
