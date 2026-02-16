@@ -271,10 +271,21 @@ const hotspots = computed(() => [
                 class="absolute right-3 top-3 size-6 group-hover:size-7 duration-300"
               ></UIcon>
             </div>
-            <Transition name="slide-fade">
+            <Transition
+              :name="
+                index === castList.length - 1
+                  ? 'slide-fade-left'
+                  : 'slide-fade-right'
+              "
+            >
               <div
                 v-if="expandedActorIndex === index"
-                class="absolute left-[105%] top-0 bottom-0 w-60 md:w-70 bg-black/70 backdrop-blur-lg border border-white/20 rounded-r-lg shadow-2xl z-50 p-5 flex flex-col justify-between overflow-y-auto"
+                class="absolute top-0 bottom-0 w-60 md:w-70 bg-black/70 backdrop-blur-lg border border-white/20 shadow-2xl z-50 p-5 flex flex-col justify-between overflow-y-auto"
+                :class="[
+                  index === castList.length - 1
+                    ? 'right-[105%] rounded-l-lg'
+                    : 'left-[105%] rounded-r-lg',
+                ]"
                 @click.stop
               >
                 <div>
@@ -337,17 +348,25 @@ const hotspots = computed(() => [
 </template>
 
 <style scoped>
-.slide-fade-enter-active {
+/* Common active state */
+.slide-fade-right-enter-active,
+.slide-fade-right-leave-active,
+.slide-fade-left-enter-active,
+.slide-fade-left-leave-active {
   transition: all 0.3s ease-out;
 }
 
-.slide-fade-leave-active {
-  transition: all 0.2s ease-in;
+/* Standard (Opens to Right) */
+.slide-fade-right-enter-from,
+.slide-fade-right-leave-to {
+  transform: translateX(-10px); /* Slides from left */
+  opacity: 0;
 }
 
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(-10px);
+/* Last Item (Opens to Left) */
+.slide-fade-left-enter-from,
+.slide-fade-left-leave-to {
+  transform: translateX(10px); /* Slides from right */
   opacity: 0;
 }
 
