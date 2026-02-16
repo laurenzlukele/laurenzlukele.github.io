@@ -1,10 +1,19 @@
 <script setup lang="ts">
-const isMapOpen = ref(false);
+const isMapOpen = ref(true);
 const route = useRoute();
 
 const isPressed = ref(false);
 
 const mapZones = computed(() => [
+  {
+    id: "balcony",
+    name: $t("map.balcony"),
+    path: "/balcony",
+    x: 2,
+    y: 3,
+    w: 7,
+    h: 76,
+  },
   {
     id: "bedroom",
     name: $t("map.bedroom"),
