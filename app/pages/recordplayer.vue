@@ -156,18 +156,18 @@ const hotspots = computed(() => [
             class="w-full landscape:w-5/12 md:w-5/12 bg-linear-to-br from-indigo-900 to-purple-900 flex flex-col items-center justify-center p-4 landscape:p-2 lg:p-8 relative shrink-0"
           >
             <div
-              class="shrink-0 relative w-48 h-48 landscape:w-32 landscape:h-32 lg:w-56 lg:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
+              class="shrink-0 relative w-48 h-48 landscape:w-50 landscape:h-50 landscape:lg:w-56 landscape:lg:h-56 shadow-2xl rounded-full border-4 border-white/10 flex items-center justify-center"
             >
               <div
                 class="w-full h-full rounded-full overflow-hidden bg-black"
                 :class="{ 'animate-spin-slow': isAudioPlaying }"
               >
                 <div
-                  class="w-full h-full bg-[url('https://placehold.co/400')] bg-cover opacity-80"
+                  class="w-full h-full bg-[url('/images/album.webp')] bg-cover opacity-80"
                 ></div>
               </div>
               <div
-                class="absolute w-16 h-16 landscape:w-10 landscape:h-10 bg-red-600 rounded-full border-4 border-black z-10"
+                class="absolute w-16 h-16 landscape:w-8 landscape:h-8 bg-neutral-800 rounded-full border-4 border-black z-10"
               ></div>
             </div>
 
