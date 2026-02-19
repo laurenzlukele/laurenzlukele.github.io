@@ -9,7 +9,7 @@ useSeoMeta({
 });
 
 const movie = reactive({
-  poster: "/images/poster.jpeg",
+  poster: "/images/poster.webp",
   year: "2026",
   length: "1h 14m",
   director: "Laurenz Lukele",
@@ -38,6 +38,8 @@ const movie = reactive({
         <NuxtImg
           :src="movie.poster"
           :alt="$t('movie.tethered')"
+          height="2625"
+          width="1750"
           class="w-full object-contain"
         />
       </div>
