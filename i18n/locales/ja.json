@@ -53,7 +53,8 @@
     "bathroom": "浴室",
     "bedroom": "寝室",
     "entrance": "玄関",
-    "kitchen": "キッチン"
+    "kitchen": "キッチン",
+    "open": "マップ表示"
   },
   "player": {
     "original-soundtrack": "オリジナル・サウンドトラック",

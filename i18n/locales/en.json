@@ -53,7 +53,8 @@
     "bathroom": "Bathroom",
     "bedroom": "Bedroom",
     "entrance": "Entrance",
-    "kitchen": "Kitchen"
+    "kitchen": "Kitchen",
+    "open": "Open Map"
   },
   "language": {
     "english": "English",

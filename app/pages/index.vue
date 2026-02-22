@@ -11,7 +11,7 @@ useSeoMeta({
 const movie = reactive({
   poster: "/images/poster.webp",
   year: "2026",
-  length: "1h 14m",
+  length: "1h 51m",
   director: "Laurenz Lukele",
   tmdbUrl: "https://www.themoviedb.org/person/5112297-laurenz-lukele",
 });

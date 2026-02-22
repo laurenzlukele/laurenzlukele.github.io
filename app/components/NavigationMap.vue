@@ -94,6 +94,25 @@ const openMap = () => {
       @click="triggerClick"
     >
       <div
+        v-if="!isMapOpen"
+        class="absolute flex items-center gap-1.5 animate-bounce pointer-events-none z-20 font-black uppercase tracking-widest text-sm whitespace-nowrap drop-shadow-sm /* Default (Portrait): Right side */ left-full top-1/2 -translate-y-1/2 ml-3 /* Mobile Landscape: Top side */ landscape:left-1/2 landscape:top-auto landscape:bottom-full landscape:-translate-x-1/2 landscape:translate-y-0 landscape:ml-0 landscape:mb-3 /* Desktop Landscape: Back to right side */ lg:landscape:left-full lg:landscape:bottom-auto lg:landscape:top-1/2 lg:landscape:translate-x-0 lg:landscape:-translate-y-1/2 lg:landscape:mb-0 lg:landscape:ml-3"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-5 h-5 landscape:hidden lg:landscape:block"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+        {{ $t("map.open") }}
+      </div>
+
+      <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-24 bg-gray-800 -z-10 mt-8 rounded-full transition-opacity duration-300 group-hover:opacity-0"
       />
 
