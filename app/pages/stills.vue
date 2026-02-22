@@ -31,6 +31,7 @@ const stills = [
   "images/stills/still12.webp",
   "images/stills/still13.webp",
   "images/stills/still14.webp",
+  "images/stills/still15.webp",
 ];
 
 const thumbnails = [
@@ -48,6 +49,7 @@ const thumbnails = [
   "images/stills/still12-thumb.webp",
   "images/stills/still13-thumb.webp",
   "images/stills/still14-thumb.webp",
+  "images/stills/still15-thumb.webp",
 ];
 
 const carousel = useTemplateRef("carousel");
@@ -174,7 +176,7 @@ watch(activeIndex, (newIndex) => {
     >
       <template #content>
         <div
-          class="flex flex-col landscape:h-dvh lg:landscape:h-auto overflow-hidden gap-2 landscape:gap-2 lg:landscape:gap-4"
+          class="flex flex-col landscape:h-dvh lg:landscape:h-screen overflow-hidden gap-2 landscape:gap-2 lg:landscape:gap-4"
         >
           <UCarousel
             ref="carousel"
@@ -190,7 +192,7 @@ watch(activeIndex, (newIndex) => {
               prev: 'hidden lg:flex',
               next: 'hidden lg:flex',
             }"
-            class="flex-1 min-h-0 max-w-4xl mx-auto"
+            class="flex-1 min-h-0 max-w-4xl mx-auto my-auto"
             @select="onSelect"
           >
             <img :src="item" class="max-h-full max-w-full object-contain" />
