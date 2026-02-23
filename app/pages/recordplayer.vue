@@ -71,6 +71,8 @@ const currentSrc = computed(() =>
 const hasNext = computed(() => currentIndex.value < playlist.length - 1);
 const hasPrev = computed(() => currentIndex.value > 0);
 
+const isAudioLoading = ref(false);
+
 const togglePlay = () => {
   if (!audioPlayer.value) return;
   if (audioPlayer.value.paused) {
@@ -272,6 +274,11 @@ const hotspots = computed(() => [
                   ref="audioPlayer"
                   :src="currentSrc"
                   autoplay
+                  preload="auto"
+                  @loadstart="isAudioLoading = true"
+                  @canplay="isAudioLoading = false"
+                  @playing="isAudioLoading = false"
+                  @waiting="isAudioLoading = true"
                   @ended="nextTrack"
                   @play="isAudioPlaying = true"
                   @pause="isAudioPlaying = false"
@@ -288,10 +295,16 @@ const hotspots = computed(() => [
                   color="primary"
                   variant="solid"
                   class="rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-primary-500/20"
+                  :disabled="isAudioLoading"
                   @click="togglePlay"
                 >
                   <UIcon
-                    v-if="isAudioPlaying"
+                    v-if="isAudioLoading"
+                    name="i-heroicons-arrow-path-20-solid"
+                    class="size-5 animate-spin"
+                  />
+                  <UIcon
+                    v-else-if="isAudioPlaying"
                     name="i-heroicons-pause-20-solid"
                     class="size-5"
                   />
@@ -299,7 +312,7 @@ const hotspots = computed(() => [
                     v-else
                     name="i-heroicons-play-20-solid"
                     class="size-5"
-                  ></UIcon>
+                  />
                 </UButton>
                 <UButton
                   icon="i-heroicons-forward-20-solid"
