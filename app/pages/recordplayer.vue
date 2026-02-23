@@ -22,10 +22,43 @@ const isAudioPlayerOpen = ref(false);
 const isAudioPlaying = ref(false);
 
 const playlist: Track[] = [
-  { title: "Title Music", file: "track01.mp3", duration: "4:05" },
-  { title: "The Discovery", file: "track02.mp3", duration: "1:36" },
-  { title: "Running Away", file: "track03.mp3", duration: "2:12" },
+  { title: "Up to Fate", file: "up-to-fate.mp3", duration: "1:21" },
+  {
+    title: "Who is this Hako?",
+    file: "who-is-this-hako.mp3",
+    duration: "1:26",
+  },
+  { title: "Helenes Theme", file: "helenes-theme.mp3", duration: "5:36" },
+  { title: "The Gift", file: "the-gift.mp3", duration: "2:05" },
+  { title: "Shiny Road", file: "shiny-road.mp3", duration: "5:42" },
+  { title: "Wet Spot", file: "wet-spot.mp3", duration: "4:53" },
+  {
+    title: "A Rush of Happiness",
+    file: "a-rush-of-happiness.mp3",
+    duration: "2:00",
+  },
+  { title: "Walk of Shame", file: "walk-of-shame.mp3", duration: "1:34" },
+  {
+    title: "Blue isn't the only Color",
+    file: "blue-isnt-the-only-color.mp3",
+    duration: "3:31",
+  },
+  { title: "Humanity", file: "humanity.mp3", duration: "2:50" },
+  { title: "Apfelstrudel", file: "apfelstrudel.mp3", duration: "3:00" },
+  {
+    title: "Up to Fate (reprise)",
+    file: "up-to-fate-reprise.mp3",
+    duration: "2:18",
+  },
+  {
+    title: "Trip to the bottom of the Ocean",
+    file: "trip-to-the-bottom-of-the-ocean.mp3",
+    duration: "2:42",
+  },
+  { title: "The Escape", file: "the-escape.mp3", duration: "3:37" },
+  { title: "Goodbye Song", file: "goodbye-song.mp3", duration: "3:34" },
 ];
+
 const currentIndex = ref(0);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
 
