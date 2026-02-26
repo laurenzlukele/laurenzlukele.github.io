@@ -10,7 +10,7 @@ useSeoMeta({
 });
 
 const isVideoPlayerOpen = ref(false);
-const currentYoutubeId = "NFVXPxwkyHc";
+const currentYoutubeId = "J8XGf_Ik_0M";
 
 const openVideoPlayer = () => {
   isVideoPlayerOpen.value = true;

@@ -25,7 +25,7 @@ const hotspots = computed(() => [
     x: 35,
     y: 78,
     label: $t("tooltip.remote"),
-    action: () => openVideoPlayer("NFVXPxwkyHc"),
+    action: () => openVideoPlayer("p2A3K8Z1d-k"),
   },
 ]);
 </script>
