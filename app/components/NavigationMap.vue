@@ -86,7 +86,7 @@ const openMap = () => {
 
 <template>
   <div
-    class="fixed z-50 flex select-none w-full justify-center landscape:w-auto landscape:right-5 lg:landscape:w-full lg:landscape:justify-center lg:landscape:right-auto landscape:bottom-5 lg:landscape:bottom-8"
+    class="fixed z-50 flex select-none w-full justify-center landscape:w-auto landscape:right-4 lg:landscape:w-full lg:landscape:justify-center lg:landscape:right-auto landscape:bottom-5 lg:landscape:bottom-8"
   >
     <button
       class="group relative outline-none focus:outline-none cursor-pointer"
@@ -95,9 +95,20 @@ const openMap = () => {
     >
       <div
         v-if="!isMapOpen"
-        class="absolute flex items-center gap-1.5 animate-bounce pointer-events-none z-20 font-black uppercase tracking-widest text-sm whitespace-nowrap drop-shadow-sm /* Default (Portrait): Right side */ left-full top-1/2 -translate-y-1/2 ml-3 /* Mobile Landscape: Top side */ landscape:left-1/2 landscape:top-auto landscape:bottom-full landscape:-translate-x-1/2 landscape:translate-y-0 landscape:ml-0 landscape:mb-3 /* Desktop Landscape: Back to right side */ lg:landscape:left-full lg:landscape:bottom-auto lg:landscape:top-1/2 lg:landscape:translate-x-0 lg:landscape:-translate-y-1/2 lg:landscape:mb-0 lg:landscape:ml-3"
+        class="absolute flex items-center gap-1 animate-bounce pointer-events-none z-20 font-black uppercase tracking-widest text-sm whitespace-nowrap drop-shadow-sm"
+        :class="[
+          // Default position: Centered on top
+          'bottom-full left-1/2 -translate-x-1/2 mb-2',
+          // Special case: Left side for mobile landscape on route '/'
+          route.path === '/'
+            ? 'landscape:bottom-auto landscape:top-1/2 landscape:left-auto landscape:right-full landscape:translate-x-0 landscape:-translate-y-1/2 landscape:mb-0 landscape:mr-2 lg:landscape:bottom-full lg:landscape:left-1/2 lg:landscape:-translate-x-1/2 lg:landscape:mb-2 lg:landscape:mr-0 lg:landscape:top-auto lg:landscape:right-auto lg:landscape:translate-y-0'
+            : '',
+        ]"
       >
+        <span class="text-xs lg:landscape:text-base">{{ $t("map.open") }}</span>
+
         <svg
+          v-if="route.path === '/'"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -105,19 +116,17 @@ const openMap = () => {
           stroke-width="3"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="w-5 h-5 landscape:hidden lg:landscape:block"
+          class="size-4 lg:landscape:size-5 hidden landscape:block lg:landscape:hidden rotate-180"
         >
           <path d="M15 18l-6-6 6-6" />
         </svg>
-        {{ $t("map.open") }}
       </div>
-
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-24 bg-gray-800 -z-10 mt-8 rounded-full transition-opacity duration-300 group-hover:opacity-0"
       />
 
       <div
-        class="relative z-10 w-20 h-20 border-4 border-black transform rotate-45 bg-amber-50 rounded-full transition-all ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:bg-amber-800 group-hover:rounded-br-none group-hover:-translate-y-2 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+        class="relative z-10 size-16 lg:lanscape:size-20 border-4 border-black transform rotate-45 bg-amber-50 rounded-full transition-all ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:bg-amber-800 group-hover:rounded-br-none group-hover:-translate-y-2 group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
         :class="
           isPressed
             ? 'translate-y-1! translate-x-1! shadow-none! duration-100! bg-amber-800 rounded-br-none'

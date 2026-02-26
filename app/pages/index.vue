@@ -48,7 +48,9 @@ const movie = reactive({
         class="flex-1 flex flex-col justify-center p-6 landscape:p-6 landscape:pl-8 overflow-hidden"
       >
         <div class="mb-2 landscape:mb-3">
-          <h1 class="landscape:text-4xl lg:landscape:text-5xl font-black mb-3">
+          <h1
+            class="landscape:text-3xl lg:landscape:text-5xl font-black mb-2 lg:landscape:mb-3"
+          >
             {{ $t("movie.tethered") }}
           </h1>
           <div
@@ -75,7 +77,7 @@ const movie = reactive({
         </div>
 
         <div
-          class="space-y-1 mb-3 landscape:mb-4 text-xs landscape:text-sm lg:landscape:text-base text-toned"
+          class="space-y-1 mb-3 lg:landscape:mb-4 text-xs landscape:text-sm lg:landscape:text-base text-toned"
         >
           <p class="truncate">
             <strong class="text-white">{{ $t("movie.director") }}:</strong>
@@ -96,10 +98,10 @@ const movie = reactive({
         </div>
 
         <div
-          class="mb-4 landscape:mb-5 text-sm landscape:text-sm lg:landscape:text-base landscape:leading-relaxed text-toned"
+          class="mb-4 text-sm landscape:text-sm lg:landscape:text-base landscape:leading-relaxed text-toned"
         >
           <p
-            class="line-clamp-3 landscape:line-clamp-4 lg:line-clamp-none max-w-lg"
+            class="line-clamp-4 lg:landscape:line-clamp-none max-w-md lg:landscape:max-w-lg"
           >
             {{ $t("movie.synopsis") }}
           </p>
@@ -120,9 +122,3 @@ const movie = reactive({
     </div>
   </div>
 </template>
-
-<style scoped>
-/* No custom CSS needed! 
-   Everything is handled by Tailwind utility classes.
-*/
-</style>
