@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const config = useAppConfig();
-const roomName = "Official Trailer";
+const roomName = "Television";
 
 useSeoMeta({
   title: roomName,
@@ -12,10 +12,9 @@ useSeoMeta({
 });
 
 const isVideoPlayerOpen = ref(false);
-const currentYoutubeId = ref("");
+const youtubeId = "p2A3K8Z1d-k";
 
-const openVideoPlayer = (youtubeId: string) => {
-  currentYoutubeId.value = youtubeId;
+const openVideoPlayer = () => {
   isVideoPlayerOpen.value = true;
 };
 
@@ -25,7 +24,7 @@ const hotspots = computed(() => [
     x: 35,
     y: 78,
     label: $t("tooltip.remote"),
-    action: () => openVideoPlayer("p2A3K8Z1d-k"),
+    action: () => openVideoPlayer(),
   },
 ]);
 </script>
@@ -53,34 +52,10 @@ const hotspots = computed(() => [
       </button>
     </div>
 
-    <UModal
+    <VideoPlayerModal
       v-model:open="isVideoPlayerOpen"
-      :ui="{
-        content: 'max-w-5xl bg-transparent shadow-none ring-0',
-        overlay: 'backdrop-blur-md',
-      }"
-      title="Trailer"
-    >
-      <template #content>
-        <div class="aspect-video w-full max-h-[90vh] max-w-[142vh] mx-auto">
-          <iframe
-            v-if="isVideoPlayerOpen"
-            width="100%"
-            height="100%"
-            :src="`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&rel=0`"
-            title="Video Player"
-            frameborder="0"
-            allow="
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-            "
-            allowfullscreen
-          ></iframe>
-        </div>
-      </template>
-    </UModal>
+      :youtube-id="youtubeId"
+      title="Behind the Scenes"
+    />
   </div>
 </template>

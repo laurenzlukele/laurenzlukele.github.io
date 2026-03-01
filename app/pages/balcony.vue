@@ -10,7 +10,7 @@ useSeoMeta({
 });
 
 const isVideoPlayerOpen = ref(false);
-const currentYoutubeId = "J8XGf_Ik_0M";
+const youtubeId = "J8XGf_Ik_0M";
 
 const openVideoPlayer = () => {
   isVideoPlayerOpen.value = true;
@@ -46,34 +46,10 @@ const hotspots = computed(() => [
       </button>
     </div>
 
-    <UModal
+    <VideoPlayerModal
       v-model:open="isVideoPlayerOpen"
-      :ui="{
-        content: 'max-w-5xl bg-transparent shadow-none ring-0',
-        overlay: 'backdrop-blur-md',
-      }"
+      :youtube-id="youtubeId"
       title="Trailer"
-    >
-      <template #content>
-        <div class="aspect-video w-full max-h-[90vh] max-w-[142vh] mx-auto">
-          <iframe
-            v-if="isVideoPlayerOpen"
-            width="100%"
-            height="100%"
-            :src="`https://www.youtube.com/embed/${currentYoutubeId}?autoplay=1&rel=0`"
-            title="Video Player"
-            frameborder="0"
-            allow="
-              accelerometer;
-              autoplay;
-              clipboard-write;
-              encrypted-media;
-              gyroscope;
-            "
-            allowfullscreen
-          ></iframe>
-        </div>
-      </template>
-    </UModal>
+    />
   </div>
 </template>
